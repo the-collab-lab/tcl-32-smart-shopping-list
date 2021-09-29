@@ -8,7 +8,7 @@
 - Repo: {REPO_URL}
 - Clone URL: {REPO_CLONE_URL}
 - Issue list: {PROJECT_BOARD_URL}
-- Database: {CONSOLE_URL}
+- Database: https://console.firebase.google.com/u/2/project/tcl-32-smart-shopping-list/firestore/data/~2F
 
 ### Project cadence & duration
 
