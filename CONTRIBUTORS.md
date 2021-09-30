@@ -7,5 +7,6 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Cohort Participants
 
 ## Mentors
+- [Jonathan Yeong](https://github.com/jonathanyeong) 🧗
 
 ## Code of Conduct Contacts
