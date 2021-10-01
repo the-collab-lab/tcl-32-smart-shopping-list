@@ -18,42 +18,42 @@ Each week, the team of 4 developers will split into 2 pairs of 2 developers each
 
 Pairings will go as follows:
 
-#### Week 1, {DATES_WEEK_1}
+#### Week 1, October 2 - 8
 
-1. {DEV_1} & {DEV_2}
-2. {DEV_3} & {DEV_4}
+1. Fatima & Shalom
+2. Jordan & Mandi
 
-#### Week 2, {DATES_WEEK_2}
+#### Week 2, October 9 - 15
 
-1. {DEV_2} & {DEV_3}
-2. {DEV_1} & {DEV_4}
+1. Mandi & Fatima
+2. Shalom & Jordan
 
-#### Week 3, {DATES_WEEK_3}
+#### Week 3, October 16 - 22
 
-1. {DEV_3} & {DEV_1}
-2. {DEV_4} & {DEV_2}
+1. Jordan & Fatima
+2. Shalom & Mandi
 
-#### Week 4, {DATES_WEEK_4}
+#### Week 4, October 23 - 29
 
-1. {DEV_1} & {DEV_2}
-2. {DEV_3} & {DEV_4}
+1. Fatima & Shalom
+2. Jordan & Mandi
 
-#### Week 5, {DATES_WEEK_5}
+#### Week 5, October 30 - November 5
 
-1. {DEV_2} & {DEV_3}
-2. {DEV_1} & {DEV_4}
+1. Mandi & Fatima
+2. Shalom & Jordan
 
-#### Week 6, {DATES_WEEK_6}
+#### Week 6, November 6 - 12
 
-1. {DEV_3} & {DEV_1}
-2. {DEV_4} & {DEV_2}
+1. Jordan & Fatima
+2. Shalom & Mandi
 
-#### Week 7, {DATES_WEEK_7}
+#### Week 7, November 13 - 19
 
-1. {DEV_1} & {DEV_2}
-2. {DEV_3} & {DEV_4}
+1. Fatima & Shalom
+2. Jordan & Mandi
 
-#### Week 8, {DATES_WEEK_8}
+#### Week 8, November 20 - 26
 
-1. {DEV_2} & {DEV_3}
-2. {DEV_1} & {DEV_4}
+1. Mandi & Fatima
+2. Shalom & Jordan
