@@ -4,10 +4,10 @@
 
 ### Locations for things
 
-- Site: {PRODUCTION_URL}
-- Repo: {REPO_URL}
-- Clone URL: {REPO_CLONE_URL}
-- Issue list: {PROJECT_BOARD_URL}
+- Site: https://tcl-32-smart-shopping-list.web.app/
+- Repo: https://github.com/the-collab-lab/tcl-32-smart-shopping-list
+- Clone URL: `https://github.com/the-collab-lab/tcl-32-smart-shopping-list.git`
+- Issue list: https://github.com/the-collab-lab/tcl-32-smart-shopping-list/projects/1
 - Database: https://console.firebase.google.com/u/2/project/tcl-32-smart-shopping-list/firestore/data/~2F
 
 ### Project cadence & duration
