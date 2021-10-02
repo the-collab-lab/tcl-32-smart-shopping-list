@@ -7,6 +7,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Cohort Participants
 
 - [Mandi Hamza](https://github.com/Mandihamza) 🦄
+- [Fatima Camero](https://github.com/timamero) 🍰
 
 ## Mentors
 
