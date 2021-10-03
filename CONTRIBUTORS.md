@@ -8,6 +8,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 - [Mandi Hamza](https://github.com/Mandihamza) 🦄
 - [Fatima Camero](https://github.com/timamero) 🍰
+- [Jordan Raleigh](https://github.com/JordanRaleigh) 🤔
 
 ## Mentors
 
