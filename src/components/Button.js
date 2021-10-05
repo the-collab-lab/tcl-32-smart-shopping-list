@@ -12,7 +12,7 @@ function Button() {
     });
     console.log('Document written with ID: ', docRef.id);
   };
-
+  // test
   return (
     <div>
       <button onClick={handleSubmission}>Add item</button>
