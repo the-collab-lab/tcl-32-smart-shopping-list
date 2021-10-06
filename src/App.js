@@ -1,13 +1,11 @@
 import React from 'react';
 import './App.css';
-import Button from './components/Button.js';
-import List from './components/List';
+import ReadWriteFirestore from './components/ReadWriteFirestore.js';
 
 function App() {
   return (
     <div className="App">
-      <Button />
-      <List />
+      <ReadWriteFirestore />
     </div>
   );
 }
