@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function App() {
+  const [isActive, setIsActive] = useState(false);
+
   const linkContainerStyle = {
     position: 'fixed',
     bottom: '0',
@@ -13,6 +15,11 @@ function App() {
     padding: '1rem',
   };
 
+  const linkIsActiveStyle = {
+    padding: '1rem',
+    fontWeight: '700',
+  };
+
   function List() {
     return <div>List View</div>;
   }
@@ -21,14 +28,26 @@ function App() {
     return <div>Add Item View</div>;
   }
 
+  function handleLinkClick() {
+    setIsActive(!isActive);
+  }
+
   return (
     <div className="App">
       <Router>
         <div style={linkContainerStyle}>
-          <Link style={linkStyle} to="/list">
+          <Link
+            onClick={handleLinkClick}
+            style={isActive ? linkIsActiveStyle : linkStyle}
+            to="/list"
+          >
             List
           </Link>
-          <Link style={linkStyle} to="/additem">
+          <Link
+            onClick={handleLinkClick}
+            style={!isActive ? linkIsActiveStyle : linkStyle}
+            to="/additem"
+          >
             Add Item
           </Link>
         </div>
