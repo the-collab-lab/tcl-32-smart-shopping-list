@@ -13,8 +13,18 @@ function App() {
     padding: '1rem',
   };
 
+  function List() {
+    return <div>List View</div>;
+  }
+
+  function AddItem() {
+    return <div>Add Item</div>;
+  }
+
   return (
     <div className="App">
+      <List />
+      <AddItem />
       <Router>
         <div style={linkContainerStyle}>
           <Link style={linkStyle} to="/list">
