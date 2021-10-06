@@ -18,13 +18,11 @@ function App() {
   }
 
   function AddItem() {
-    return <div>Add Item</div>;
+    return <div>Add Item View</div>;
   }
 
   return (
     <div className="App">
-      <List />
-      <AddItem />
       <Router>
         <div style={linkContainerStyle}>
           <Link style={linkStyle} to="/list">
@@ -34,6 +32,15 @@ function App() {
             Add Item
           </Link>
         </div>
+
+        <Switch>
+          <Route path="/list">
+            <List />
+          </Route>
+          <Route path="/additem">
+            <AddItem />
+          </Route>
+        </Switch>
       </Router>
     </div>
   );
