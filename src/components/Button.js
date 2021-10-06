@@ -10,9 +10,9 @@ function Button() {
     const docRef = await addDoc(collection(db, 'users'), {
       state: state,
     });
-    console.log('Document written with ID: ', docRef.id);
+    console.log('Document written with ID: ', docRef.id, '\n State:', state);
   };
-  // test
+
   return (
     <div>
       <button onClick={handleSubmission}>Add item</button>
