@@ -8,17 +8,17 @@ function ReadWriteFirestore() {
 
   const handleSubmission = async () => {
     setState(state + 1);
-    const docRef = await addDoc(collection(db, 'users'), {
+    const addUser = await addDoc(collection(db, 'users'), {
       state: state,
     });
     console.log('Button was clicked =>', state);
   };
 
-  const usersCollectionRef = collection(db, 'users');
+  const getUsersCollection = collection(db, 'users');
 
   useEffect(() => {
     const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
+      const data = await getDocs(getUsersCollection);
       setUser(
         data.docs.map((doc) => ({
           ...doc.data(),
@@ -28,7 +28,7 @@ function ReadWriteFirestore() {
     };
 
     getUsers();
-  }, [usersCollectionRef]);
+  }, [getUsersCollection]);
 
   return (
     <div>
