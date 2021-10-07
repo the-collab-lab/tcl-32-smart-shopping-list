@@ -14,10 +14,10 @@ function App() {
     <div className="App">
       <Router>
         <div className="linkContainerStyle">
-          <NavLink activeClassName="active" to="/list">
+          <NavLink activeClassName="active" className="navLink" to="/list">
             List
           </NavLink>
-          <NavLink activeClassName="active" to="/additem">
+          <NavLink activeClassName="active" className="navLink" to="/additem">
             Add Item
           </NavLink>
         </div>

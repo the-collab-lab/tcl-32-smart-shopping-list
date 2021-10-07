@@ -1,7 +1,7 @@
 import React from 'react';
 
 function List() {
-  return <div>List2 View</div>;
+  return <div>List View</div>;
 }
 
 export default List;
