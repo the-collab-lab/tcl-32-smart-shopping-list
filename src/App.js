@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -6,28 +6,14 @@ import {
   Route,
   NavLink,
 } from 'react-router-dom';
+import List from './pages/List';
+import AddItem from './pages/AddItem';
 
 function App() {
-  const [isActive, setIsActive] = useState(false);
-
-  const linkContainerStyle = {
-    position: 'fixed',
-    bottom: '0',
-    width: '100%',
-  };
-
-  function List() {
-    return <div>List View</div>;
-  }
-
-  function AddItem() {
-    return <div>Add Item View</div>;
-  }
-
   return (
     <div className="App">
       <Router>
-        <div style={linkContainerStyle}>
+        <div className="linkContainerStyle">
           <NavLink activeClassName="active" to="/list">
             List
           </NavLink>
