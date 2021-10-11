@@ -1,13 +1,17 @@
 import { getToken, words } from '@the-collab-lab/shopping-list-utils';
 import { NavLink } from 'react-router-dom';
 
-function createTokenAndSaveToLocalStorage() {
-  window.localStorage.setItem('userToken', JSON.stringify(getToken()));
-}
+function CreateListButton({ setToken }) {
+  function createTokenAndSaveToLocalStorage() {
+    const token = window.localStorage.setItem(
+      'userToken',
+      JSON.stringify(getToken()),
+    );
+    setToken(token);
+  }
 
-function CreateListButton() {
   return (
-    <NavLink onClick={createTokenAndSaveToLocalStorage} to="/home">
+    <NavLink onClick={createTokenAndSaveToLocalStorage} to="/">
       Create New List
     </NavLink>
   );

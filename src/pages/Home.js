@@ -1,10 +1,10 @@
 import React from 'react';
 import CreateListButton from '../components/CreateListButton';
 
-function Home() {
+function Home({ setToken }) {
   return (
     <div>
-      <CreateListButton />
+      <CreateListButton setToken={setToken} />
     </div>
   );
 }

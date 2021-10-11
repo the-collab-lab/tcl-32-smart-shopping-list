@@ -6,6 +6,7 @@ import {
   Switch,
   Route,
   NavLink,
+  Redirect,
 } from 'react-router-dom';
 import Home from './pages/Home';
 import List from './pages/List';
@@ -26,6 +27,11 @@ function App() {
   }, [userToken]);
 
   console.log('userToken', userToken);
+
+  function setToken() {
+    setUserToken(window.localStorage.getItem('userToken'));
+  }
+
   return (
     <div className="App">
       {/* <ReadWriteFirestore /> */}
@@ -40,8 +46,9 @@ function App() {
         </div>
 
         <Switch>
-          <Route path="/home">
-            <Home />
+          <Route exact path="/">
+            {userToken ? <Redirect to="/list" /> : <Home setToken={setToken} />}
+            {/* <Home /> */}
           </Route>
           <Route path="/list">
             <List />
