@@ -20,3 +20,25 @@
 .App-link {
   color: #09d3ac;
 }
+
+.active {
+  font-weight: 700;
+}
+
+.linkContainerStyle {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  justify-items: center;
+}
+
+.navLink {
+  width: max-content;
+  padding: 0.5rem;
+  text-decoration: none;
+  color: black;
+  background-color: lightblue;
+  border-radius: 0.5rem;
+}
