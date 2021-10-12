@@ -1,7 +1,12 @@
 import React from 'react';
+import CreateListButton from '../components/CreateListButton';
 
 function Home() {
-  return <div>Home View</div>;
+  return (
+    <div>
+      <CreateListButton />
+    </div>
+  );
 }
 
 export default Home;
