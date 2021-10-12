@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  onSnapshot,
+  query,
+} from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-function ReadWriteFirestore() {
+function ReadWriteFirestore(props) {
   const [state, setState] = useState(0);
   const [user, setUser] = useState([]);
 
-  const handleSubmission = async () => {
-    setState(state + 1);
-    const addUser = await addDoc(collection(db, 'users'), {
-      state: state,
-    });
-    console.log('Button was clicked =>', state);
-  };
-
-  const getUsersCollection = collection(db, 'users');
-
+  // Loads current snapshot of data after first page load
   useEffect(() => {
+    const getUsersCollection = collection(db, 'users');
+
     const getUsers = async () => {
       const data = await getDocs(getUsersCollection);
       setUser(
@@ -28,11 +27,30 @@ function ReadWriteFirestore() {
     };
 
     getUsers();
-  }, [getUsersCollection]);
+  }, []);
+
+  // Loads updated snapshot in console after handleSubmission runs
+  const q = query(collection(db, 'users'));
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const users = [];
+    querySnapshot.forEach((doc) => {
+      users.push(doc.data().state);
+    });
+    // unsubscribe();
+    console.log('Current users list: ', users.join(', '));
+  });
+
+  const handleSubmission = async () => {
+    setState(state + 1);
+    await addDoc(collection(db, 'users'), {
+      state: state,
+    });
+  };
 
   return (
     <div>
       <button onClick={handleSubmission}>Add item</button>
+
       {user.map((user, i) => {
         return (
           <div key={i}>
