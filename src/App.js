@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 // import ReadWriteFirestore from './components/ReadWriteFirestore.js';
 import {
@@ -10,8 +10,22 @@ import {
 import Home from './pages/Home';
 import List from './pages/List';
 import AddItem from './pages/AddItem';
-// TEST
+
 function App() {
+  const [userToken, setUserToken] = useState(null);
+
+  useEffect(() => {
+    const userTokenJSON = window.localStorage.getItem('userToken');
+
+    if (userTokenJSON) {
+      setUserToken(JSON.parse(userTokenJSON));
+      console.log('token found');
+    } else {
+      console.log('token not found');
+    }
+  }, [userToken]);
+
+  console.log('userToken', userToken);
   return (
     <div className="App">
       {/* <ReadWriteFirestore /> */}
