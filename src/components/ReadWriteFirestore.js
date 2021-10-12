@@ -24,10 +24,10 @@ function ReadWriteFirestore() {
   return (
     <div>
       <button onClick={handleSubmission}> Add item </button>
-      {list.map((lists, i) => {
+      {list.map((list, i) => {
         return (
           <div key={i}>
-            <p>State: {lists.state}</p>
+            <p>State: {list.state}</p>
           </div>
         );
       })}
