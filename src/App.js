@@ -34,21 +34,21 @@ function App() {
 
   return (
     <div className="App">
-      {/* <ReadWriteFirestore /> */}
       <Router>
-        <div className="linkContainerStyle">
-          <NavLink activeClassName="active" className="navLink" to="/list">
-            List
-          </NavLink>
-          <NavLink activeClassName="active" className="navLink" to="/additem">
-            Add Item
-          </NavLink>
-        </div>
+        {userToken && (
+          <div className="linkContainerStyle">
+            <NavLink activeClassName="active" className="navLink" to="/list">
+              List
+            </NavLink>
+            <NavLink activeClassName="active" className="navLink" to="/additem">
+              Add Item
+            </NavLink>
+          </div>
+        )}
 
         <Switch>
           <Route exact path="/">
             {userToken ? <Redirect to="/list" /> : <Home setToken={setToken} />}
-            {/* <Home /> */}
           </Route>
           <Route path="/list">
             <List />
