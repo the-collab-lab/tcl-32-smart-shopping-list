@@ -1,44 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 function ReadWriteFirestore() {
   const [state, setState] = useState(0);
-  const [user, setUser] = useState([]);
+  const [list, setList] = useState([]);
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'lists'), (snapshot) =>
+        setList(snapshot.docs.map((doc) => doc.data())),
+      ),
+    [],
+  );
 
   const handleSubmission = async () => {
     setState(state + 1);
-    const addUser = await addDoc(collection(db, 'users'), {
+    await addDoc(collection(db, 'lists'), {
       state: state,
     });
-    console.log('Button was clicked =>', state);
   };
-
-  const getUsersCollection = collection(db, 'users');
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(getUsersCollection);
-      setUser(
-        data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        })),
-      );
-    };
-
-    getUsers();
-  }, [getUsersCollection]);
 
   return (
     <div>
-      <button onClick={handleSubmission}>Add item</button>
-      {user.map((user, i) => {
+      <button onClick={handleSubmission}> Add item </button>
+      {list.map((list, i) => {
         return (
           <div key={i}>
-            <p>
-              State: {user.state}, Id: {user.id}
-            </p>
+            <p>State: {list.state}</p>
           </div>
         );
       })}
