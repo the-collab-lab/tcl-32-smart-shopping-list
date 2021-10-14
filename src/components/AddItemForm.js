@@ -1,47 +1,52 @@
-import React, { useState } from 'react';
-
-// function sendMessage(name, email, password, bio, job, interest) {
-//   let newFormMessage = formMessage.push();
-//   newFormMessage.set({
-//     name: name,
-//     email: email,
-//     password: password,
-//     bio: bio,
-//     job: job,
-//     Interest: interest
-//   });
-// }
+import React, { useState, useEffect } from 'react';
+import { collection, addDoc, onSnapshot } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 
 function AddItemForm() {
-  function submitItem(event) {
-    event.preventDefault();
-    debugger;
-    console.log('value', event.target.elements);
-  }
+  const [item, setItem] = useState([]);
+  const token = window.localStorage.getItem('userToken');
+  console.log('Token: ', token);
 
-  const [item, setItem] = useState('');
+  const submitItem = async (itemName, purchaseInterval, userToken) => {
+    console.log(...itemName, purchaseInterval, userToken);
+    await addDoc(collection(db, 'listTest'), {
+      itemName: itemName,
+      purchaseInterval: purchaseInterval,
+      userToken: userToken,
+    });
+  };
+
+  // This is for testing the data being sent to firestore (should be repurposed in the list view later.)
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'listTest'), (snapshot) =>
+        setItem(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))),
+      ),
+    [],
+  );
+  console.log('Items from database:', item);
 
   return (
-    <form onSubmit={submitItem}>
-      <label for="item">
+    <form>
+      <label htmlFor="item">
         Item
         <input id="itemName" type="text" />
       </label>
       <div>
         <label>
-          <input id="soon" type="radio" value="7" name="next-purchase" />
+          <input id="soon" type="radio" value="7" name="nextPurchase" />
           Soon
         </label>
         <label>
-          <input id="kindOfSoon" type="radio" value="14" name="next-purchase" />
+          <input id="kindOfSoon" type="radio" value="14" name="nextPurchase" />
           Kind of Soon
         </label>
         <label>
-          <input id="notSoon" type="radio" value="30" name="next-purchase" />
+          <input id="notSoon" type="radio" value="30" name="nextPurchase" />
           Not Soon
         </label>
       </div>
-      <button id="add-item" type="submit">
+      <button id="addItem" type="submit" onClick={submitItem}>
         Add Item
       </button>
     </form>

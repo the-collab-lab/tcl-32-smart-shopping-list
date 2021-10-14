@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import ReadWriteFirestore from './components/ReadWriteFirestore.js';
+// import ReadWriteFirestore from './components/ReadWriteFirestore.js';
 import {
   BrowserRouter as Router,
   Switch,
