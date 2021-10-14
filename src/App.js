@@ -13,7 +13,7 @@ import AddItem from './pages/AddItem';
 function App() {
   return (
     <div className="App">
-      <ReadWriteFirestore />
+      {/* <ReadWriteFirestore /> */}
       <Router>
         <div className="linkContainerStyle">
           <NavLink activeClassName="active" className="navLink" to="/list">
