@@ -4,11 +4,19 @@ import { db } from '../lib/firebase';
 
 function AddItemForm() {
   const [item, setItem] = useState([]);
-  const token = window.localStorage.getItem('userToken');
-  console.log('Token: ', token);
 
-  const submitItem = async (itemName, purchaseInterval, userToken) => {
-    console.log(...itemName, purchaseInterval, userToken);
+  const submitItem = (event) => {
+    event.preventDefault();
+    const token = window.localStorage.getItem('userToken');
+
+    const itemName = event.target.itemName.value;
+    const purchaseInterval = event.target.nextPurchase.value;
+    const userToken = token;
+    console.log('test: ', itemName, purchaseInterval, userToken);
+    handleSubmission(itemName, purchaseInterval, userToken);
+  };
+
+  const handleSubmission = async (itemName, purchaseInterval, userToken) => {
     await addDoc(collection(db, 'listTest'), {
       itemName: itemName,
       purchaseInterval: purchaseInterval,
@@ -27,7 +35,7 @@ function AddItemForm() {
   console.log('Items from database:', item);
 
   return (
-    <form>
+    <form onSubmit={submitItem}>
       <label htmlFor="item">
         Item
         <input id="itemName" type="text" />
@@ -46,7 +54,7 @@ function AddItemForm() {
           Not Soon
         </label>
       </div>
-      <button id="addItem" type="submit" onClick={submitItem}>
+      <button id="addItem" type="submit">
         Add Item
       </button>
     </form>
