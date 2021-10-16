@@ -3,8 +3,7 @@ import AddItemForm from '../components/AddItemForm';
 
 function AddItem() {
   return (
-    <div>
-      Add Item View
+    <div className="page">
       <AddItemForm />
     </div>
   );

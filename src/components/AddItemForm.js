@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import './AddItemForm.css';
 
 function AddItemForm() {
   const [item, setItem] = useState([]);
@@ -35,12 +36,12 @@ function AddItemForm() {
   console.log('Items from database:', item);
 
   return (
-    <form onSubmit={submitItem}>
+    <form onSubmit={submitItem} className="addItemForm">
       <label htmlFor="item">
-        Item
+        Item Name
         <input id="itemName" type="text" />
       </label>
-      <div>
+      <div className="nextPurchaseRadioGroup">
         <label>
           <input id="soon" type="radio" value="7" name="nextPurchase" />
           Soon
@@ -54,7 +55,7 @@ function AddItemForm() {
           Not Soon
         </label>
       </div>
-      <button id="addItem" type="submit">
+      <button id="addItem" type="submit" className="addItemSubmitButton">
         Add Item
       </button>
     </form>

@@ -13,8 +13,9 @@ import AddItem from './pages/AddItem';
 function App() {
   return (
     <div className="App">
-      <ReadWriteFirestore />
+      {/* <ReadWriteFirestore /> */}
       <Router>
+        <h1>Smart Shopping List</h1>
         <div className="linkContainerStyle">
           <NavLink activeClassName="active" className="navLink" to="/list">
             List
