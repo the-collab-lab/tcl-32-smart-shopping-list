@@ -13,22 +13,29 @@ function AddItemForm() {
     const itemName = event.target.itemName.value;
     const purchaseInterval = event.target.nextPurchase.value;
     const userToken = token;
-    console.log('test: ', itemName, purchaseInterval, userToken);
-    handleSubmission(itemName, purchaseInterval, userToken);
+    const lastPurchased = event.target.lastPurchased.value;
+    console.log('test: ', itemName, purchaseInterval, userToken, lastPurchased);
+    handleSubmission(itemName, purchaseInterval, userToken, lastPurchased);
   };
 
-  const handleSubmission = async (itemName, purchaseInterval, userToken) => {
-    await addDoc(collection(db, 'listTest'), {
+  const handleSubmission = async (
+    itemName,
+    purchaseInterval,
+    userToken,
+    lastPurchased,
+  ) => {
+    await addDoc(collection(db, 'list'), {
       itemName: itemName,
       purchaseInterval: purchaseInterval,
       userToken: userToken,
+      lastPurchased: lastPurchased,
     });
   };
 
   // This is for testing the data being sent to firestore (should be repurposed in the list view later.)
   useEffect(
     () =>
-      onSnapshot(collection(db, 'listTest'), (snapshot) =>
+      onSnapshot(collection(db, 'list'), (snapshot) =>
         setItem(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))),
       ),
     [],
@@ -53,6 +60,15 @@ function AddItemForm() {
         <label>
           <input id="notSoon" type="radio" value="30" name="nextPurchase" />
           Not Soon
+        </label>
+        <label>
+          Last Purchased Date:
+          <input
+            id="lastPurchased"
+            type="int"
+            value={null}
+            name="lastPurchased"
+          />
         </label>
       </div>
       <button id="addItem" type="submit" className="addItemSubmitButton">

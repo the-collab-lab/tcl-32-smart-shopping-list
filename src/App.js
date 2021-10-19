@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import ReadWriteFirestore from './components/ReadWriteFirestore.js';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,7 +13,6 @@ import AddItem from './pages/AddItem';
 function App() {
   return (
     <div className="App">
-      {/* <ReadWriteFirestore /> */}
       <Router>
         <h1>Smart Shopping List</h1>
         <div className="linkContainerStyle">

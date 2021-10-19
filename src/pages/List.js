@@ -1,12 +1,7 @@
 import React from 'react';
-import ItemsList from '../components/ItemsList';
 
 function List() {
-  return (
-    <div className="page">
-      <ItemsList />
-    </div>
-  );
+  return <div className="page"></div>;
 }
 
 export default List;
