@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { collection, addDoc, onSnapshot } from 'firebase/firestore';
+import React from 'react';
+import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './AddItemForm.css';
 
 function AddItemForm() {
-  const [item, setItem] = useState([]);
-
   const submitItem = (event) => {
     event.preventDefault();
     const token = window.localStorage.getItem('userToken');
@@ -13,8 +11,7 @@ function AddItemForm() {
     const itemName = event.target.itemName.value;
     const purchaseInterval = event.target.nextPurchase.value;
     const userToken = token;
-    const lastPurchased = event.target.lastPurchased.value;
-    console.log('test: ', itemName, purchaseInterval, userToken, lastPurchased);
+    const lastPurchased = event.target.lastPurchased.value || null;
     handleSubmission(itemName, purchaseInterval, userToken, lastPurchased);
   };
 
@@ -31,16 +28,6 @@ function AddItemForm() {
       lastPurchased: lastPurchased,
     });
   };
-
-  // This is for testing the data being sent to firestore (should be repurposed in the list view later.)
-  useEffect(
-    () =>
-      onSnapshot(collection(db, 'list'), (snapshot) =>
-        setItem(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))),
-      ),
-    [],
-  );
-  console.log('Items from database:', item);
 
   return (
     <form onSubmit={submitItem} className="addItemForm">
@@ -62,17 +49,12 @@ function AddItemForm() {
           Not Soon
         </label>
         <label>
-          Last Purchased Date:
-          <input
-            id="lastPurchased"
-            type="int"
-            value={null}
-            name="lastPurchased"
-          />
+          Last Purchased Date (optional)
+          <input id="lastPurchased" type="int" name="lastPurchased" />
         </label>
       </div>
       <button id="addItem" type="submit" className="addItemSubmitButton">
-        Add Item
+        Add To List
       </button>
     </form>
   );
