@@ -20,13 +20,8 @@ function App() {
 
     if (userTokenJSON) {
       setUserToken(JSON.parse(userTokenJSON));
-      console.log('token found');
-    } else {
-      console.log('token not found');
     }
   }, [userToken]);
-
-  console.log('userToken', userToken);
 
   function setToken() {
     setUserToken(window.localStorage.getItem('userToken'));
