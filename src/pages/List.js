@@ -3,7 +3,6 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 function List() {
-  const [state, setState] = useState(0);
   const [list, setList] = useState([]);
 
   useEffect(
