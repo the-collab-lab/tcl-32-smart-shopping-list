@@ -1,7 +1,12 @@
 import React from 'react';
+import AddItemForm from '../components/AddItemForm';
 
 function AddItem() {
-  return <div>Add Item View</div>;
+  return (
+    <div className="page">
+      <AddItemForm />
+    </div>
+  );
 }
 
 export default AddItem;

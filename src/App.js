@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-// import ReadWriteFirestore from './components/ReadWriteFirestore.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -36,6 +35,15 @@ function App() {
             </NavLink>
           </div>
         )}
+        <h1>Smart Shopping List</h1>
+        <div className="linkContainerStyle">
+          <NavLink activeClassName="active" className="navLink" to="/list">
+            List
+          </NavLink>
+          <NavLink activeClassName="active" className="navLink" to="/additem">
+            Add Item
+          </NavLink>
+        </div>
 
         <Switch>
           <Route exact path="/">

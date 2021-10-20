@@ -1,0 +1,39 @@
+.addItemForm {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.addItemForm > * {
+  padding: 1rem;
+}
+
+#itemName {
+  margin: 0 0.5rem;
+}
+
+.nextPurchaseRadioGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: max-content;
+  margin: 0 auto;
+}
+
+.nextPurchaseRadioGroup > * {
+  padding: 0.25rem;
+}
+
+.addItemSubmitButton {
+  cursor: pointer;
+  width: max-content;
+  margin: 0 auto;
+  padding: 0.5rem;
+  text-decoration: none;
+  color: black;
+  background-color: lavender;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+}

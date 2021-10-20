@@ -7,7 +7,7 @@ function List() {
 
   useEffect(
     () =>
-      onSnapshot(collection(db, 'listTest'), (snapshot) =>
+      onSnapshot(collection(db, 'list'), (snapshot) =>
         setList(snapshot.docs.map((doc) => doc.data())),
       ),
     [],
@@ -15,7 +15,6 @@ function List() {
 
   return (
     <div>
-      List View
       <div>
         {list.map((list, i) => {
           return (
