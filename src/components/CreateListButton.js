@@ -3,10 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 function CreateListButton({ setToken }) {
   function createTokenAndSaveToLocalStorage() {
-    const token = window.localStorage.setItem(
-      'userToken',
-      JSON.stringify(getToken()),
-    );
+    const token = window.localStorage.setItem('userToken', getToken());
     setToken(token);
   }
 
