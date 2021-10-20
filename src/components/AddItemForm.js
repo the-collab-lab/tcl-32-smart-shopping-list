@@ -6,11 +6,9 @@ import './AddItemForm.css';
 function AddItemForm() {
   const submitItem = (event) => {
     event.preventDefault();
-    const token = window.localStorage.getItem('userToken');
-
+    const userToken = window.localStorage.getItem('userToken');
     const itemName = event.target.itemName.value;
     const purchaseInterval = event.target.nextPurchase.value;
-    const userToken = token;
     const lastPurchased = event.target.lastPurchased.value || null;
     handleSubmission(itemName, purchaseInterval, userToken, lastPurchased);
   };
