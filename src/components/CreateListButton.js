@@ -5,6 +5,7 @@ function CreateListButton({ setToken }) {
   function createTokenAndSaveToLocalStorage() {
     const token = window.localStorage.setItem('userToken', getToken());
     setToken(token);
+    console.log('token: ', token);
   }
 
   return (

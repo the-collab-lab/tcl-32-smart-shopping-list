@@ -50,10 +50,10 @@ function App() {
             {userToken ? <Redirect to="/list" /> : <Home setToken={setToken} />}
           </Route>
           <Route path="/list">
-            <List />
+            {userToken ? <List /> : <Redirect to="/" />}
           </Route>
           <Route path="/additem">
-            <AddItem />
+            {userToken ? <AddItem /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </Router>
