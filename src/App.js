@@ -10,17 +10,25 @@ import {
 import Home from './pages/Home';
 import List from './pages/List';
 import AddItem from './pages/AddItem';
+import { getToken } from '@the-collab-lab/shopping-list-utils';
 
 function App() {
   const [userToken, setUserToken] = useState(null);
 
   useEffect(() => {
-    setToken();
+    getUserToken();
   }, [userToken]);
 
-  function setToken() {
+  function createTokenAndSaveToLocalStorage() {
+    window.localStorage.setItem('userToken', getToken());
+    getUserToken();
+  }
+
+  function getUserToken() {
     setUserToken(window.localStorage.getItem('userToken'));
   }
+
+  console.log('userToken', userToken);
 
   return (
     <div className="App">
@@ -47,7 +55,16 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            {userToken ? <Redirect to="/list" /> : <Home setToken={setToken} />}
+            {userToken ? (
+              <Redirect to="/list" />
+            ) : (
+              <Home
+                createTokenAndSaveToLocalStorage={
+                  createTokenAndSaveToLocalStorage
+                }
+                getUserToken={getUserToken}
+              />
+            )}
           </Route>
           <Route path="/list">
             <List />
