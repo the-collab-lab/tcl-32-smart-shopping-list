@@ -19,8 +19,13 @@ function App() {
     getUserToken();
   }, [userToken]);
 
-  function createTokenAndSaveToLocalStorage() {
-    window.localStorage.setItem('userToken', getToken());
+  function createTokenAndSaveToLocalStorage(token) {
+    if (!token) {
+      window.localStorage.setItem('userToken', getToken());
+    } else {
+      window.localStorage.setItem('userToken', token);
+    }
+
     getUserToken();
   }
 
