@@ -7,10 +7,7 @@ function List() {
   const [sharedToken, setSharedToken] = useState([]);
 
   useEffect(() => {
-    const sharedToken = window.localStorage.getItem('userToken') || null;
-    if (sharedToken === null) {
-      alert('This token is invalid. Try again');
-    }
+    const sharedToken = window.localStorage.getItem('userToken');
     const q = query(
       collection(db, 'list'),
       where('userToken', '==', sharedToken),
@@ -19,14 +16,14 @@ function List() {
     const unsubscribe = onSnapshot(q, (snapshot) =>
       setList(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))),
     );
-
+    setSharedToken(sharedToken);
     return unsubscribe;
   }, [sharedToken]);
 
   return (
     <div>
+      <h2>Shared list token: {sharedToken}</h2>
       <div>
-        <h2>List token: {sharedToken}</h2>
         {list.map((item, i) => {
           return (
             <div key={i}>
