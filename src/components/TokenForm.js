@@ -1,28 +1,22 @@
 import React from 'react';
 import { db } from '../lib/firebase';
-// import { collection, where } from "firebase/firestore";
+import { collection, where, query, getDocs } from 'firebase/firestore';
 
 export default function TokenForm({ createTokenAndSaveToLocalStorage }) {
   const handleTokenSubmit = async (e) => {
     e.preventDefault();
-    // const token = e.target.sharedToken.value
+    const token = e.target.sharedToken.value;
+    const listRef = collection(db, 'list');
+    const q = query(listRef, where('userToken', '==', token));
+    const querySnapshot = await getDocs(q);
 
-    db.collection('list')
-      .where('userToken', '==', 'sharedToken')
-      .get()
-      .then((querySnapshot) => {
-        console.log('querySnapshot', querySnapshot);
-        // querySnapshot.forEach(doc =>{
-        //     console.log(doc.data()) // or do something else with the data
-        // })
-        createTokenAndSaveToLocalStorage(e.target.sharedToken.value);
-      })
-      .catch((error) => {
-        alert('Error: This token does not exist', error);
-      });
-
-    console.log(e.target.sharedToken.value);
-    // createTokenAndSaveToLocalStorage(e.target.sharedToken.value);
+    console.log('querySnapshot', querySnapshot.docs);
+    if (querySnapshot.docs.length) {
+      console.log('querySnapshot', querySnapshot.docs);
+      createTokenAndSaveToLocalStorage(e.target.sharedToken.value);
+    } else {
+      alert('Error: This token does not exist');
+    }
   };
 
   return (
