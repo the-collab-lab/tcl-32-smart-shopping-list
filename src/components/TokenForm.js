@@ -16,6 +16,7 @@ export default function TokenForm({ createTokenAndSaveToLocalStorage }) {
       createTokenAndSaveToLocalStorage(e.target.sharedToken.value);
     } else {
       alert('Error: This token does not exist');
+      e.target.reset();
     }
   };
 
