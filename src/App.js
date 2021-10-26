@@ -20,10 +20,8 @@ function App() {
   }, [userToken]);
 
   function createTokenAndSaveToLocalStorage(token) {
-    console.log('token', token);
-    console.log('userToken', userToken);
-    if (typeof token !== String) {
-      console.log('createToken function');
+    // console.log('token', token);
+    if (typeof token !== 'string') {
       window.localStorage.setItem('userToken', getToken());
     } else {
       window.localStorage.setItem('userToken', token);

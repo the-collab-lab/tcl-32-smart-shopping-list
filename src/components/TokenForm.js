@@ -10,10 +10,8 @@ export default function TokenForm({ createTokenAndSaveToLocalStorage }) {
     const q = query(listRef, where('userToken', '==', token));
     const querySnapshot = await getDocs(q);
 
-    console.log('querySnapshot', querySnapshot.docs);
     if (querySnapshot.docs.length) {
-      console.log('querySnapshot', querySnapshot.docs);
-      createTokenAndSaveToLocalStorage(e.target.sharedToken.value);
+      createTokenAndSaveToLocalStorage(token);
     } else {
       alert('Error: This token does not exist');
       e.target.reset();

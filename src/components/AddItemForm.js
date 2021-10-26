@@ -1,18 +1,50 @@
 import React from 'react';
-import { collection, addDoc } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  onSnapshot,
+  getDocs,
+} from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './AddItemForm.css';
 
 function AddItemForm() {
-  const submitItem = (event) => {
+  const submitItem = async (event) => {
     event.preventDefault();
     const userToken = window.localStorage.getItem('userToken');
     const itemName = event.target.itemName.value;
     const purchaseInterval = event.target.nextPurchase.value;
     const lastPurchased = event.target.lastPurchased.value || null;
-    handleSubmission(itemName, purchaseInterval, userToken, lastPurchased);
-    event.target.reset();
-    alert('Item added!');
+    const checkItem = await isItemInDatabase(itemName, userToken);
+    console.log('checkItem', checkItem);
+    if (!checkItem) {
+      handleSubmission(itemName, purchaseInterval, userToken, lastPurchased);
+      event.target.reset();
+      alert('Item added!');
+    } else {
+      alert('Item is already in your list');
+    }
+  };
+
+  const isItemInDatabase = async (itemName, userToken) => {
+    const q = query(
+      collection(db, 'list'),
+      where('userToken', '==', userToken),
+      where('itemName', '==', itemName),
+    );
+    const querySnapshot = await getDocs(q);
+    console.log(querySnapshot.docs);
+    if (querySnapshot.docs.length) {
+      return true;
+    } else {
+      return false;
+    }
+    // querySnapshot.forEach((doc) => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   console.log(doc.id, " => ", doc.data());
+    // });
   };
 
   const handleSubmission = async (
