@@ -5,7 +5,10 @@ import TokenForm from '../components/TokenForm';
 function Home({ getUserToken, createTokenAndSaveToLocalStorage }) {
   return (
     <div>
-      <CreateListButton getUserToken={getUserToken} />
+      <CreateListButton
+        getUserToken={getUserToken}
+        createTokenAndSaveToLocalStorage={createTokenAndSaveToLocalStorage}
+      />
       <TokenForm
         createTokenAndSaveToLocalStorage={createTokenAndSaveToLocalStorage}
       />
