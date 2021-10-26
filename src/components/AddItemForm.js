@@ -11,6 +11,8 @@ function AddItemForm() {
     const purchaseInterval = event.target.nextPurchase.value;
     const lastPurchased = event.target.lastPurchased.value || null;
     handleSubmission(itemName, purchaseInterval, userToken, lastPurchased);
+    event.target.reset();
+    alert('Item added!');
   };
 
   const handleSubmission = async (

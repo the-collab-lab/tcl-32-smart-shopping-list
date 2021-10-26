@@ -10,17 +10,33 @@ import {
 import Home from './pages/Home';
 import List from './pages/List';
 import AddItem from './pages/AddItem';
+import { getToken } from '@the-collab-lab/shopping-list-utils';
 
 function App() {
   const [userToken, setUserToken] = useState(null);
 
   useEffect(() => {
-    setToken();
+    getUserToken();
   }, [userToken]);
 
-  function setToken() {
+  function createTokenAndSaveToLocalStorage(token) {
+    console.log('token', token);
+    console.log('userToken', userToken);
+    if (typeof token !== String) {
+      console.log('createToken function');
+      window.localStorage.setItem('userToken', getToken());
+    } else {
+      window.localStorage.setItem('userToken', token);
+    }
+
+    getUserToken();
+  }
+
+  function getUserToken() {
     setUserToken(window.localStorage.getItem('userToken'));
   }
+
+  console.log('userToken', userToken);
 
   return (
     <div className="App">
@@ -47,13 +63,22 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            {userToken ? <Redirect to="/list" /> : <Home setToken={setToken} />}
+            {userToken ? (
+              <Redirect to="/list" />
+            ) : (
+              <Home
+                createTokenAndSaveToLocalStorage={
+                  createTokenAndSaveToLocalStorage
+                }
+                getUserToken={getUserToken}
+              />
+            )}
           </Route>
           <Route path="/list">
-            <List />
+            {userToken ? <List /> : <Redirect to="/" />}
           </Route>
           <Route path="/additem">
-            <AddItem />
+            {userToken ? <AddItem /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </Router>
