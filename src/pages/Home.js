@@ -1,10 +1,14 @@
 import React from 'react';
 import CreateListButton from '../components/CreateListButton';
+import TokenForm from '../components/TokenForm';
 
-function Home({ setToken }) {
+function Home({ getUserToken, createTokenAndSaveToLocalStorage }) {
   return (
     <div>
-      <CreateListButton setToken={setToken} />
+      <CreateListButton getUserToken={getUserToken} />
+      <TokenForm
+        createTokenAndSaveToLocalStorage={createTokenAndSaveToLocalStorage}
+      />
     </div>
   );
 }
