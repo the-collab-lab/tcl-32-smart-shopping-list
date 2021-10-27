@@ -24,13 +24,15 @@ function List() {
     <div>
       <h2>Shared list token: {sharedToken}</h2>
       <div>
-        {list.map((item, i) => {
-          return (
-            <div key={i}>
-              <ul>{item.itemName}</ul>
-            </div>
-          );
-        })}
+        {list.length < 2
+          ? 'Please add your first item'
+          : list.map((item, i) => {
+              return (
+                <div key={i}>
+                  <ul>{item.itemName}</ul>
+                </div>
+              );
+            })}
       </div>
     </div>
   );

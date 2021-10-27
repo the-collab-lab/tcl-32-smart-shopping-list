@@ -19,20 +19,20 @@ function App() {
     getUserToken();
   }, [userToken]);
 
-  function createTokenAndSaveToLocalStorage(token) {
-    console.log('token', token);
-    console.log('userToken', userToken);
-    if (typeof token !== String) {
-      console.log('createToken function');
-      window.localStorage.setItem('userToken', getToken());
-    } else {
-      window.localStorage.setItem('userToken', token);
-    }
+  function createTokenAndSaveToLocalStorage() {
+    console.log('createTokenAndSaveToLocalStorage token', userToken);
+    window.localStorage.setItem('userToken', getToken());
+    getUserToken();
+  }
 
+  function useExistingTokenAndSaveToLocalStorage(token) {
+    console.log('hit useExistingTokenAndSaveToLocalStorage', token);
+    window.localStorage.setItem('userToken', token);
     getUserToken();
   }
 
   function getUserToken() {
+    console.log('get user token', userToken);
     setUserToken(window.localStorage.getItem('userToken'));
   }
 
@@ -71,6 +71,9 @@ function App() {
                   createTokenAndSaveToLocalStorage
                 }
                 getUserToken={getUserToken}
+                useExistingTokenAndSaveToLocalStorage={
+                  useExistingTokenAndSaveToLocalStorage
+                }
               />
             )}
           </Route>

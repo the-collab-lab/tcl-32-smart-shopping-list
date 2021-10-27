@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-function CreateListButton({ getUserToken, createTokenAndSaveToLocalStorage }) {
+function CreateListButton({ createTokenAndSaveToLocalStorage }) {
   return (
     <NavLink onClick={createTokenAndSaveToLocalStorage} to="/additem">
       Create New List
