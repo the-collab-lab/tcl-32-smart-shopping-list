@@ -15,12 +15,20 @@ function AddItemForm() {
     event.preventDefault();
     const userToken = window.localStorage.getItem('userToken');
     const itemName = event.target.itemName.value;
+    const itemNameLower = itemName.toLowerCase();
     const purchaseInterval = event.target.nextPurchase.value;
     const lastPurchased = event.target.lastPurchased.value || null;
     const checkItem = await isItemInDatabase(itemName, userToken);
     console.log('checkItem', checkItem);
+
     if (!checkItem) {
-      handleSubmission(itemName, purchaseInterval, userToken, lastPurchased);
+      handleSubmission(
+        itemName,
+        itemNameLower,
+        purchaseInterval,
+        userToken,
+        lastPurchased,
+      );
       event.target.reset();
       alert('Item added!');
     } else {
@@ -32,7 +40,7 @@ function AddItemForm() {
     const q = query(
       collection(db, 'list'),
       where('userToken', '==', userToken),
-      where('itemName', '==', itemName),
+      where('itemNameLower', '==', itemName.toLowerCase()),
     );
     const querySnapshot = await getDocs(q);
     console.log(querySnapshot.docs);
@@ -43,18 +51,21 @@ function AddItemForm() {
     }
     // querySnapshot.forEach((doc) => {
     //   // doc.data() is never undefined for query doc snapshots
-    //   console.log(doc.id, " => ", doc.data());
+    //   // console.log(doc.id, " => ", doc.data());
+    //   console.log(doc.data().itemName)
     // });
   };
 
   const handleSubmission = async (
     itemName,
+    itemNameLower,
     purchaseInterval,
     userToken,
     lastPurchased,
   ) => {
     await addDoc(collection(db, 'list'), {
       itemName: itemName,
+      itemNameLower: itemNameLower,
       purchaseInterval: purchaseInterval,
       userToken: userToken,
       lastPurchased: lastPurchased,
