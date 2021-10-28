@@ -14,10 +14,11 @@ function AddItemForm() {
   const normalizeValue = (value) => {
     const punctuationRegex = /[^\w]/gi;
     const emojiRegex = /[\u{1F600}-\u{1F64F}]/gu;
-    return value
+    const normalizedValue = value
       .toLowerCase()
       .replace(punctuationRegex, '')
       .replace(emojiRegex, '');
+    return normalizedValue;
   };
 
   const submitItem = async (event) => {
@@ -28,7 +29,6 @@ function AddItemForm() {
     const purchaseInterval = event.target.nextPurchase.value;
     const lastPurchased = event.target.lastPurchased.value || null;
     const checkItem = await isItemInDatabase(itemName, userToken);
-    console.log('checkItem', checkItem);
 
     if (!checkItem) {
       handleSubmission(
@@ -52,12 +52,7 @@ function AddItemForm() {
       where('itemNameNormalize', '==', normalizeValue(itemName)),
     );
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot.docs);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.id, " => ", doc.data());
-      console.log(doc.data().itemName);
-    });
+
     if (querySnapshot.docs.length) {
       return true;
     } else {
