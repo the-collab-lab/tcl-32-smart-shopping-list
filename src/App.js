@@ -43,6 +43,8 @@ function App() {
     setUserToken(window.localStorage.getItem('userToken'));
   }
 
+  console.log('userToken', userToken);
+
   return (
     <div className="App">
       <Router>
