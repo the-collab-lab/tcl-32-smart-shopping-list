@@ -15,5 +15,6 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 - [Jonathan Yeong](https://github.com/jonathanyeong) 🧗
 - [April Bowler](https://github.com/abowler2) 🐼
+- [Graham L. Brown](https://github.com/grellyd) ⛷
 
 ## Code of Conduct Contacts
