@@ -37,15 +37,33 @@ function AddItemForm() {
       </label>
       <div className="nextPurchaseRadioGroup">
         <label>
-          <input id="soon" type="radio" value="7" name="nextPurchase" />
+          <input
+            id="soon"
+            type="radio"
+            value="7"
+            name="nextPurchase"
+            required
+          />
           Soon
         </label>
         <label>
-          <input id="kindOfSoon" type="radio" value="14" name="nextPurchase" />
+          <input
+            id="kindOfSoon"
+            type="radio"
+            value="14"
+            name="nextPurchase"
+            required
+          />
           Kind of Soon
         </label>
         <label>
-          <input id="notSoon" type="radio" value="30" name="nextPurchase" />
+          <input
+            id="notSoon"
+            type="radio"
+            value="30"
+            name="nextPurchase"
+            required
+          />
           Not Soon
         </label>
         <label>
