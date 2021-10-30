@@ -1,26 +1,10 @@
 import React from 'react';
-import {
-  collection,
-  addDoc,
-  query,
-  where,
-  onSnapshot,
-  getDocs,
-} from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './AddItemForm.css';
+import { normalizeValue } from './Helper';
 
 function AddItemForm() {
-  const normalizeValue = (value) => {
-    const punctuationRegex = /[^\w]/gi;
-    const emojiRegex = /[\u{1F600}-\u{1F64F}]/gu;
-    const normalizedValue = value
-      .toLowerCase()
-      .replace(punctuationRegex, '')
-      .replace(emojiRegex, '');
-    return normalizedValue;
-  };
-
   const submitItem = async (event) => {
     event.preventDefault();
     const userToken = window.localStorage.getItem('userToken');
@@ -28,7 +12,7 @@ function AddItemForm() {
     const itemNameNormalize = normalizeValue(itemName);
     const purchaseInterval = event.target.nextPurchase.value;
     const lastPurchased = event.target.lastPurchased.value || null;
-    const checkItem = await isItemInDatabase(itemName, userToken);
+    const checkItem = await isItemInDatabase(itemNameNormalize, userToken);
 
     if (!checkItem) {
       handleSubmission(
@@ -45,11 +29,11 @@ function AddItemForm() {
     }
   };
 
-  const isItemInDatabase = async (itemName, userToken) => {
+  const isItemInDatabase = async (itemNameNormalize, userToken) => {
     const q = query(
       collection(db, 'list'),
       where('userToken', '==', userToken),
-      where('itemNameNormalize', '==', normalizeValue(itemName)),
+      where('itemNameNormalize', '==', itemNameNormalize),
     );
     const querySnapshot = await getDocs(q);
 
