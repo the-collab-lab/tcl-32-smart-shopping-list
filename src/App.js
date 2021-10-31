@@ -11,6 +11,8 @@ import Home from './pages/Home';
 import List from './pages/List';
 import AddItem from './pages/AddItem';
 import { getToken } from '@the-collab-lab/shopping-list-utils';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../src/lib/firebase';
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -19,16 +21,21 @@ function App() {
     getUserToken();
   }, [userToken]);
 
-  function createTokenAndSaveToLocalStorage(token) {
-    console.log('token', token);
-    console.log('userToken', userToken);
-    if (typeof token !== String) {
-      console.log('createToken function');
-      window.localStorage.setItem('userToken', getToken());
-    } else {
-      window.localStorage.setItem('userToken', token);
-    }
+  function createTokenAndSaveToLocalStorage(userToken) {
+    window.localStorage.setItem('userToken', getToken());
+    getUserToken();
+    submitTokenToDB();
+  }
 
+  const submitTokenToDB = async () => {
+    const token = window.localStorage.getItem('userToken');
+    await addDoc(collection(db, 'list'), {
+      userToken: token,
+    });
+  };
+
+  function grabExistingTokenAndSaveToLocalStorage(token) {
+    window.localStorage.setItem('userToken', token);
     getUserToken();
   }
 
@@ -71,6 +78,9 @@ function App() {
                   createTokenAndSaveToLocalStorage
                 }
                 getUserToken={getUserToken}
+                grabExistingTokenAndSaveToLocalStorage={
+                  grabExistingTokenAndSaveToLocalStorage
+                }
               />
             )}
           </Route>

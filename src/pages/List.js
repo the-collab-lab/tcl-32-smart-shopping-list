@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { NavLink } from 'react-router-dom';
+import '../components/AddItemForm.css';
 
 function List() {
   const [list, setList] = useState([]);
@@ -24,13 +26,19 @@ function List() {
     <div>
       <h2>Shared list token: {sharedToken}</h2>
       <div>
-        {list.map((item, i) => {
-          return (
-            <div key={i}>
-              <ul>{item.itemName}</ul>
-            </div>
-          );
-        })}
+        {list.length < 2 ? (
+          <NavLink className="addItemSubmitButton" to="/additem">
+            Add Item
+          </NavLink>
+        ) : (
+          list.map((item, i) => {
+            return (
+              <div key={i}>
+                <ul>{item.itemName}</ul>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );
