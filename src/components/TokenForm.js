@@ -2,7 +2,7 @@ import React from 'react';
 import { db } from '../lib/firebase';
 import { collection, where, query, getDocs } from 'firebase/firestore';
 
-export default function TokenForm(props) {
+export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
   const handleTokenSubmit = async (e) => {
     e.preventDefault();
     const token = e.target.sharedToken.value;
@@ -13,7 +13,7 @@ export default function TokenForm(props) {
     console.log('querySnapshot', querySnapshot.docs);
     if (querySnapshot.docs.length) {
       console.log('querySnapshot', querySnapshot.docs);
-      props.useExistingTokenAndSaveToLocalStorage(e.target.sharedToken.value);
+      grabExistingTokenAndSaveToLocalStorage(e.target.sharedToken.value);
     } else {
       alert('Error: This token does not exist');
       e.target.reset();

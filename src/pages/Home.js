@@ -3,7 +3,7 @@ import CreateListButton from '../components/CreateListButton';
 import TokenForm from '../components/TokenForm';
 
 function Home({
-  useExistingTokenAndSaveToLocalStorage,
+  grabExistingTokenAndSaveToLocalStorage,
   createTokenAndSaveToLocalStorage,
 }) {
   return (
@@ -12,8 +12,8 @@ function Home({
         createTokenAndSaveToLocalStorage={createTokenAndSaveToLocalStorage}
       />
       <TokenForm
-        useExistingTokenAndSaveToLocalStorage={
-          useExistingTokenAndSaveToLocalStorage
+        grabExistingTokenAndSaveToLocalStorage={
+          grabExistingTokenAndSaveToLocalStorage
         }
       />
     </div>

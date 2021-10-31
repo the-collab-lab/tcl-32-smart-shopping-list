@@ -34,7 +34,7 @@ function App() {
     });
   };
 
-  function useExistingTokenAndSaveToLocalStorage(token) {
+  function grabExistingTokenAndSaveToLocalStorage(token) {
     window.localStorage.setItem('userToken', token);
     getUserToken();
   }
@@ -78,8 +78,8 @@ function App() {
                   createTokenAndSaveToLocalStorage
                 }
                 getUserToken={getUserToken}
-                useExistingTokenAndSaveToLocalStorage={
-                  useExistingTokenAndSaveToLocalStorage
+                grabExistingTokenAndSaveToLocalStorage={
+                  grabExistingTokenAndSaveToLocalStorage
                 }
               />
             )}
