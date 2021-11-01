@@ -10,7 +10,6 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
     const q = query(listRef, where('userToken', '==', token));
     const querySnapshot = await getDocs(q);
 
-    console.log('querySnapshot', querySnapshot.docs);
     if (querySnapshot.docs.length) {
       console.log('querySnapshot', querySnapshot.docs);
       grabExistingTokenAndSaveToLocalStorage(e.target.sharedToken.value);

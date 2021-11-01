@@ -1,28 +1,59 @@
 import React from 'react';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './AddItemForm.css';
+import { normalizeValue } from './Helper';
 
 function AddItemForm() {
-  const submitItem = (event) => {
+  const submitItem = async (event) => {
     event.preventDefault();
     const userToken = window.localStorage.getItem('userToken');
     const itemName = event.target.itemName.value;
+    const itemNameNormalize = normalizeValue(itemName);
     const purchaseInterval = event.target.nextPurchase.value;
     const lastPurchased = event.target.lastPurchased.value || null;
-    handleSubmission(itemName, purchaseInterval, userToken, lastPurchased);
-    event.target.reset();
-    alert('Item added!');
+    const checkItem = await isItemInDatabase(itemNameNormalize, userToken);
+
+    if (!checkItem) {
+      handleSubmission(
+        itemName,
+        itemNameNormalize,
+        purchaseInterval,
+        userToken,
+        lastPurchased,
+      );
+      event.target.reset();
+      alert('Item added!');
+    } else {
+      alert('Item is already in your list');
+    }
+  };
+
+  const isItemInDatabase = async (itemNameNormalize, userToken) => {
+    const q = query(
+      collection(db, 'list'),
+      where('userToken', '==', userToken),
+      where('itemNameNormalize', '==', itemNameNormalize),
+    );
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.docs.length) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const handleSubmission = async (
     itemName,
+    itemNameNormalize,
     purchaseInterval,
     userToken,
     lastPurchased,
   ) => {
     await addDoc(collection(db, 'list'), {
       itemName: itemName,
+      itemNameNormalize: itemNameNormalize,
       purchaseInterval: purchaseInterval,
       userToken: userToken,
       lastPurchased: lastPurchased,
