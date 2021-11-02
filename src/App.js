@@ -29,7 +29,7 @@ function App() {
 
   const submitTokenToDB = async () => {
     const token = window.localStorage.getItem('userToken');
-    const docRef = doc(db, 'users', `${token}`, userToken);
+    const docRef = doc(db, 'users', `${token}`);
     const payload = { userToken: token };
     await setDoc(docRef, payload);
   };
