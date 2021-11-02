@@ -3,6 +3,7 @@ import { collection, onSnapshot, query } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { NavLink } from 'react-router-dom';
 import '../components/AddItemForm.css';
+import SearchList from '../components/SearchList';
 
 function List() {
   const [list, setList] = useState([]);
@@ -21,6 +22,7 @@ function List() {
 
   return (
     <div>
+      <SearchList list={list} />
       <h2>Shared list token: {sharedToken}</h2>
       <div>
         {list.length === 0 ? (
