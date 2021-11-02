@@ -6,8 +6,8 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
   const handleTokenSubmit = async (e) => {
     e.preventDefault();
     const token = e.target.sharedToken.value;
-    const listRef = collection(db, 'list');
-    const q = query(listRef, where('userToken', '==', token));
+    const userRef = collection(db, 'users');
+    const q = query(userRef, where('userToken', '==', token));
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.docs.length) {

@@ -32,7 +32,7 @@ function AddItemForm() {
 
   const isItemInDatabase = async (itemNameNormalize, userToken) => {
     const q = query(
-      collection(db, 'list', `${userToken}`, 'items'),
+      collection(db, 'users', `${userToken}`, 'list'),
       // where('userToken', '==', userToken),
       where('itemNameNormalize', '==', itemNameNormalize),
     );
@@ -52,7 +52,7 @@ function AddItemForm() {
     userToken,
     lastPurchased,
   ) => {
-    await addDoc(collection(db, 'list', `${token}`, 'items'), {
+    await addDoc(collection(db, 'users', `${token}`, 'list'), {
       itemName: itemName,
       itemNameNormalize: itemNameNormalize,
       purchaseInterval: purchaseInterval,
