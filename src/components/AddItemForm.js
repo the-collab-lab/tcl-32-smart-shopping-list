@@ -5,6 +5,7 @@ import './AddItemForm.css';
 import { normalizeValue } from './Helper';
 
 function AddItemForm() {
+  const token = window.localStorage.getItem('userToken');
   const submitItem = async (event) => {
     event.preventDefault();
     const userToken = window.localStorage.getItem('userToken');
@@ -31,8 +32,8 @@ function AddItemForm() {
 
   const isItemInDatabase = async (itemNameNormalize, userToken) => {
     const q = query(
-      collection(db, 'list'),
-      where('userToken', '==', userToken),
+      collection(db, 'users', `${userToken}`, 'list'),
+      // where('userToken', '==', userToken),
       where('itemNameNormalize', '==', itemNameNormalize),
     );
     const querySnapshot = await getDocs(q);
@@ -51,7 +52,7 @@ function AddItemForm() {
     userToken,
     lastPurchased,
   ) => {
-    await addDoc(collection(db, 'list'), {
+    await addDoc(collection(db, 'users', `${token}`, 'list'), {
       itemName: itemName,
       itemNameNormalize: itemNameNormalize,
       purchaseInterval: purchaseInterval,

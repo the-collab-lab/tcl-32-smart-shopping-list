@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import List from './pages/List';
 import AddItem from './pages/AddItem';
 import { getToken } from '@the-collab-lab/shopping-list-utils';
-import { collection, addDoc } from 'firebase/firestore';
+import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../src/lib/firebase';
 
 function App() {
@@ -29,9 +29,9 @@ function App() {
 
   const submitTokenToDB = async () => {
     const token = window.localStorage.getItem('userToken');
-    await addDoc(collection(db, 'list'), {
-      userToken: token,
-    });
+    const docRef = doc(db, 'users', `${token}`);
+    const payload = { userToken: token };
+    await setDoc(docRef, payload);
   };
 
   function grabExistingTokenAndSaveToLocalStorage(token) {
@@ -43,7 +43,7 @@ function App() {
     setUserToken(window.localStorage.getItem('userToken'));
   }
 
-  console.log('userToken', userToken);
+  console.log('userToken:', userToken);
 
   return (
     <div className="App">
