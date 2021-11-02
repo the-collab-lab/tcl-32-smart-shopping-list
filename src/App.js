@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import List from './pages/List';
 import AddItem from './pages/AddItem';
 import { getToken } from '@the-collab-lab/shopping-list-utils';
-import { setDoc, doc, addDoc, collection } from 'firebase/firestore';
+import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../src/lib/firebase';
 
 function App() {
@@ -29,12 +29,9 @@ function App() {
 
   const submitTokenToDB = async () => {
     const token = window.localStorage.getItem('userToken');
-    const docRef = doc(db, 'list', `${token}`, userToken);
-    const collectionRef = collection(db, 'list', `${token}`, 'items');
+    const docRef = doc(db, 'users', `${token}`, userToken);
     const payload = { userToken: token };
-    const initList = {}; // this creates an empty list in firestore, without it a list collection will not be created
     await setDoc(docRef, payload);
-    addDoc(collectionRef, initList);
   };
 
   function grabExistingTokenAndSaveToLocalStorage(token) {
