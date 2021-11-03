@@ -4,20 +4,20 @@ export default function SearchList(list) {
   const [searchedItem, setSearchedItem] = useState('');
 
   //function to update list of items as user enters characters
-  //sets display of filtered-items to block to make it visible
   const updateSearch = async (e) => {
     setSearchedItem(e.target.value);
   };
 
   const clearSearch = async (e) => {
     setSearchedItem('');
+    document.getElementById('filterForm').value = '';
   };
 
-  //function to return list of items containing characters entered by the user
   let fullList = list['list'];
 
+  //function to return list of items whose normalized names contain characters entered by the user
   let filteredList = fullList.filter((item) => {
-    return item.itemNameNormalize.search(searchedItem.toLowerCase()) !== -1;
+    return item.itemNameNormalize.indexOf(searchedItem.toLowerCase()) !== -1;
   });
 
   return (
