@@ -9,12 +9,15 @@ function Item({ item, i }) {
   const [durationSincePurchased, setDurationSincePurchased] = useState(null);
   const userToken = window.localStorage.getItem('userToken');
 
-  // const newDate = new Date()
-  // console.log('Date', newDate)
-  // console.log('lastPurchased converted to date', item.lastPurchased.toDate())
-  // console.log('difference in timestamps (seconds)', (newDate - item.lastPurchased.toDate())/1000)
-  //https://firebase.google.com/docs/reference/node/firebase.firestore.Timestamp
-  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now
+  const newDate = new Date();
+  console.log('Date', newDate);
+  console.log('lastPurchased converted to date', item.lastPurchased.toDate());
+  console.log(
+    'difference in timestamps (seconds)',
+    (newDate - item.lastPurchased.toDate()) / 1000,
+  );
+  // https://firebase.google.com/docs/reference/node/firebase.firestore.Timestamp
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now
 
   useEffect(() => {
     // set state variable durationSincePurchased
@@ -33,11 +36,19 @@ function Item({ item, i }) {
   }, [item]);
 
   const updateLastPurchased = async (event) => {
-    console.log(item.id);
+    // console.log(item.id);
     const docRef = doc(db, 'users', `${userToken}`, 'list', item.id);
-    await updateDoc(docRef, {
-      lastPurchased: serverTimestamp(),
-    });
+    if (event.target.checked) {
+      console.log('checked');
+      await updateDoc(docRef, {
+        lastPurchased: serverTimestamp(),
+      });
+    } else {
+      console.log('unchecked');
+      await updateDoc(docRef, {
+        lastPurchased: null,
+      });
+    }
     console.log(serverTimestamp(item.id));
     console.log('value', event.target.checked); // prints true if checked and false if unchecked
   };
@@ -55,11 +66,12 @@ function Item({ item, i }) {
             onClick={updateLastPurchased} // updated this line
           />
           Purchased
-          {/* <input
+          <input
             value={console.log('Null: ', null)}
             name="itemPurchased"
             type="hidden"
-          /> */}
+            id="itemPurchasedCheckbox"
+          />
         </label>
       </form>
     </div>
