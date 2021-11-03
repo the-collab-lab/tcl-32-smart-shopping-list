@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  collection,
-  onSnapshot,
-  query,
-  updateDoc,
-  serverTimestamp,
-  doc,
-} from 'firebase/firestore';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { NavLink } from 'react-router-dom';
 import '../components/AddItemForm.css';
@@ -36,7 +29,7 @@ function ItemList() {
           </NavLink>
         ) : (
           list.map((item, i) => {
-            console.log(item);
+            // console.log(item);
             return <Item item={item} key={item.id}></Item>; // added key as item.id
           })
         )}
