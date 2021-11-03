@@ -37,7 +37,7 @@ function ItemList() {
         ) : (
           list.map((item, i) => {
             console.log(item);
-            return <Item item={item} i={i}></Item>;
+            return <Item item={item} key={item.id}></Item>; // added key as item.id
           })
         )}
       </div>
