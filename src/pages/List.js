@@ -22,7 +22,6 @@ function List() {
 
   return (
     <div>
-      <SearchList list={list} />
       <h2>Shared list token: {sharedToken}</h2>
       <div>
         {list.length === 0 ? (
@@ -30,13 +29,7 @@ function List() {
             Add Item
           </NavLink>
         ) : (
-          list.map((item, i) => {
-            return (
-              <div key={i}>
-                <ul>{item.itemName}</ul>
-              </div>
-            );
-          })
+          <SearchList list={list} />
         )}
       </div>
     </div>
