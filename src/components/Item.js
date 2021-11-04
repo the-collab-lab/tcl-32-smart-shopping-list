@@ -3,6 +3,7 @@ import '../components/AddItemForm.css';
 import { updateDoc, serverTimestamp, doc } from 'firebase/firestore';
 import { useState } from 'react/cjs/react.development';
 import { db } from '../lib/firebase';
+import './Item.css';
 
 function Item({ item, i }) {
   const [checked, setChecked] = useState(false);
@@ -49,9 +50,9 @@ function Item({ item, i }) {
 
   return (
     <div>
-      <ul>{item.itemName}</ul>
-      <form>
-        <label>
+      <div className="item">
+        <label htmlFor="itemPurchased">Purchased</label>
+        <form>
           <input
             id="itemPurchased"
             type="checkbox"
@@ -60,9 +61,9 @@ function Item({ item, i }) {
             onChange={handleCheckboxChange}
             onClick={updateLastPurchased}
           />
-          Purchased
-        </label>
-      </form>
+        </form>
+        <ul className="item-name">{item.itemName}</ul>
+      </div>
     </div>
   );
 }
