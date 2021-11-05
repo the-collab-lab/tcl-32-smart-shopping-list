@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { normalizeValue } from './Helper';
 
-export default function SearchList(list) {
+export default function SearchList(listItems) {
   const [searchedItem, setSearchedItem] = useState('');
-
+  const searchInputRef = useRef();
   //function to update list of items as user enters characters
-  const updateSearch = async (e) => {
-    setSearchedItem(e.target.value);
+  const updateSearch = () => {
+    setSearchedItem(searchInputRef.current.value);
   };
 
-  const clearSearch = async (e) => {
+  const clearSearch = () => {
     setSearchedItem('');
-    document.getElementById('filterForm').value = '';
+    searchInputRef.current.value = '';
   };
-
-  let fullList = list['list'];
 
   //function to return list of items whose normalized names contain characters entered by the user
-  let filteredList = fullList.filter((item) => {
-    return item.itemNameNormalize.indexOf(searchedItem.toLowerCase()) !== -1;
+
+  const filteredList = listItems.list.filter((item) => {
+    const normalizedSearch = normalizeValue(searchedItem);
+    return item.itemNameNormalize.includes(normalizedSearch);
   });
 
   return (
@@ -25,7 +26,7 @@ export default function SearchList(list) {
       Filter Items:
       <input
         type="text"
-        id="filterForm"
+        ref={searchInputRef}
         placeholder="Search for Items here"
         onChange={updateSearch}
       />
