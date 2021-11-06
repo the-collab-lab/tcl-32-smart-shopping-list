@@ -7,7 +7,7 @@ import './Item.css';
 
 function Item({ item, i }) {
   const [checked, setChecked] = useState(false);
-  const [daysSincePurchased, setDaysSincePurchased] = useState(null);
+  const [daysSincePurchased, setDaysSincePurchased] = useState();
   const userToken = window.localStorage.getItem('userToken');
 
   useEffect(() => {
@@ -62,7 +62,9 @@ function Item({ item, i }) {
             onClick={updateLastPurchased}
           />
         </form>
-        <ul className="item-name">{item.itemName}</ul>
+        <ul className="item-name" i={i}>
+          {item.itemName}
+        </ul>
       </div>
     </div>
   );
