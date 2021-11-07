@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../components/AddItemForm.css';
 import { updateDoc, serverTimestamp, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './Item.css';
@@ -16,9 +15,6 @@ function Item({ item, i }) {
       const differenceInSeconds = dateNowSeconds - lastPurchasedSeconds;
 
       setDaysSincePurchased(differenceInSeconds / 86400);
-      if (differenceInSeconds / 86400 < 1) {
-        setChecked(true);
-      }
     }
   }, [item]);
 
@@ -27,6 +23,12 @@ function Item({ item, i }) {
       if (checked) {
         setChecked(false);
       }
+    } else if (daysSincePurchased < 1) {
+      setChecked(true);
+    }
+
+    if (daysSincePurchased === null) {
+      setChecked(false);
     }
   }, [daysSincePurchased, checked]);
 
@@ -44,6 +46,7 @@ function Item({ item, i }) {
       await updateDoc(docRef, {
         lastPurchased: null,
       });
+      setDaysSincePurchased(null);
     }
   };
 
