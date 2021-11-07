@@ -3,10 +3,9 @@ import { updateDoc, serverTimestamp, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './Item.css';
 
-function Item({ item, i }) {
+function Item({ item, userToken }) {
   const [checked, setChecked] = useState(false);
   const [daysSincePurchased, setDaysSincePurchased] = useState();
-  const userToken = window.localStorage.getItem('userToken');
 
   useEffect(() => {
     if (item.lastPurchased) {
@@ -51,23 +50,19 @@ function Item({ item, i }) {
   };
 
   return (
-    <div>
-      <div className="item">
+    <div className="item">
+      <form>
         <label htmlFor="itemPurchased">Purchased</label>
-        <form>
-          <input
-            id="itemPurchased"
-            type="checkbox"
-            checked={checked}
-            name="itemPurchased"
-            onChange={handleCheckboxChange}
-            onClick={updateLastPurchased}
-          />
-        </form>
-        <ul className="item-name" i={i}>
-          {item.itemName}
-        </ul>
-      </div>
+        <input
+          id="itemPurchased"
+          type="checkbox"
+          checked={checked}
+          name="itemPurchased"
+          onChange={handleCheckboxChange}
+          onClick={updateLastPurchased}
+        />
+      </form>
+      <p className="item-name">{item.itemName}</p>
     </div>
   );
 }
