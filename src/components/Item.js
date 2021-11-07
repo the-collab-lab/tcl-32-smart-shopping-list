@@ -18,16 +18,10 @@ function Item({ item, userToken }) {
   }, [item]);
 
   useEffect(() => {
-    if (daysSincePurchased > 1) {
-      if (checked) {
-        setChecked(false);
-      }
+    if (daysSincePurchased > 1 || daysSincePurchased === null) {
+      setChecked(false);
     } else if (daysSincePurchased < 1) {
       setChecked(true);
-    }
-
-    if (daysSincePurchased === null) {
-      setChecked(false);
     }
   }, [daysSincePurchased, checked]);
 
