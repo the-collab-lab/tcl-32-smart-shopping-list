@@ -39,11 +39,7 @@ export default function SearchList(listItems) {
       <div>
         <ul className="items-list">
           {filteredList.map((item) => {
-            return (
-              <div key={item.id}>
-                <li>{item.itemName}</li>
-              </div>
-            );
+            return <li key={item.id}>{item.itemName}</li>;
           })}
         </ul>
       </div>
