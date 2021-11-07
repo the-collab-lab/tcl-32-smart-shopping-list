@@ -40,3 +40,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
 }
+
+.items-list {
+  list-style-type: none;
+}

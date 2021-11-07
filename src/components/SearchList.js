@@ -28,17 +28,24 @@ export default function SearchList(listItems) {
         type="text"
         ref={searchInputRef}
         placeholder="Search for Items here"
+        aria-label="Search for Items here"
         onChange={updateSearch}
       />
-      {searchedItem && <button onClick={clearSearch}>X</button>}
-      <div id="filtered-items">
-        {filteredList.map((item) => {
-          return (
-            <div key={item.id}>
-              <ul>{item.itemName}</ul>
-            </div>
-          );
-        })}
+      {searchedItem && (
+        <button aria-label="clear search field" onClick={clearSearch}>
+          X
+        </button>
+      )}
+      <div>
+        <ul className="items-list">
+          {filteredList.map((item) => {
+            return (
+              <div key={item.id}>
+                <li>{item.itemName}</li>
+              </div>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
