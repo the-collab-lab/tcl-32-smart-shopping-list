@@ -25,7 +25,7 @@ function ItemList({ userToken }) {
             Add Item
           </NavLink>
         ) : (
-          <SearchList list={listItems} />
+          <SearchList listItems={listItems} userToken={userToken} />
         )}
       </div>
     </div>

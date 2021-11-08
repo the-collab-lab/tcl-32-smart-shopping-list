@@ -44,7 +44,7 @@ function Item({ item, userToken }) {
   };
 
   return (
-    <div className="item">
+    <li className="item">
       <form>
         <label htmlFor="itemPurchased">Purchased</label>
         <input
@@ -57,7 +57,7 @@ function Item({ item, userToken }) {
         />
       </form>
       <p className="item-name">{item.itemName}</p>
-    </div>
+    </li>
   );
 }
 
