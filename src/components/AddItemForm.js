@@ -12,7 +12,7 @@ function AddItemForm() {
     const itemName = event.target.itemName.value;
     const itemNameNormalize = normalizeValue(itemName);
     const purchaseInterval = event.target.nextPurchase.value;
-    const lastPurchased = event.target.lastPurchased.value || null;
+    const lastPurchased = null;
     const checkItem = await isItemInDatabase(itemNameNormalize, userToken);
 
     if (!checkItem) {
@@ -33,7 +33,6 @@ function AddItemForm() {
   const isItemInDatabase = async (itemNameNormalize, userToken) => {
     const q = query(
       collection(db, 'users', `${userToken}`, 'list'),
-      // where('userToken', '==', userToken),
       where('itemNameNormalize', '==', itemNameNormalize),
     );
     const querySnapshot = await getDocs(q);
@@ -97,10 +96,6 @@ function AddItemForm() {
             required
           />
           Not Soon
-        </label>
-        <label>
-          Last Purchased Date (optional)
-          <input id="lastPurchased" type="int" name="lastPurchased" />
         </label>
       </div>
       <button id="addItem" type="submit" className="addItemSubmitButton">

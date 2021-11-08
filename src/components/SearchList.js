@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { normalizeValue } from './Helper';
+import Item from './Item';
 
-export default function SearchList(listItems) {
+export default function SearchList(listItems, userToken) {
   const [searchedItem, setSearchedItem] = useState('');
   const searchInputRef = useRef();
   //function to update list of items as user enters characters
@@ -39,7 +40,9 @@ export default function SearchList(listItems) {
       <div>
         <ul className="items-list">
           {filteredList.map((item) => {
-            return <li key={item.id}>{item.itemName}</li>;
+            return (
+              <Item item={item} key={item.id} userToken={userToken}></Item>
+            );
           })}
         </ul>
       </div>
