@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { normalizeValue } from './Helper';
+import Item from './Item';
 
-export default function SearchList(listItems) {
+export default function SearchList({ listItems, userToken }) {
   const [searchedItem, setSearchedItem] = useState('');
   const searchInputRef = useRef();
   //function to update list of items as user enters characters
@@ -16,7 +17,7 @@ export default function SearchList(listItems) {
 
   //function to return list of items whose normalized names contain characters entered by the user
 
-  const filteredList = listItems.list.filter((item) => {
+  const filteredList = listItems.filter((item) => {
     const normalizedSearch = normalizeValue(searchedItem);
     return item.itemNameNormalize.includes(normalizedSearch);
   });
@@ -36,13 +37,11 @@ export default function SearchList(listItems) {
           X
         </button>
       )}
-      <div>
-        <ul className="items-list">
-          {filteredList.map((item) => {
-            return <li key={item.id}>{item.itemName}</li>;
-          })}
-        </ul>
-      </div>
+      <ul className="items-list">
+        {filteredList.map((item) => {
+          return <Item key={item.id} item={item} userToken={userToken} />;
+        })}
+      </ul>
     </div>
   );
 }
