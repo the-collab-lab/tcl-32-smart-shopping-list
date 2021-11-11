@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { updateDoc, serverTimestamp, doc } from 'firebase/firestore';
+import { updateDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import './Item.css';
 
 function Item({ item, userToken }) {
@@ -32,12 +33,19 @@ function Item({ item, userToken }) {
   const updateLastPurchased = async (event) => {
     const docRef = doc(db, 'users', `${userToken}`, 'list', item.id);
     if (event.target.checked) {
-      await updateDoc(docRef, {
+      updateDoc(docRef, {
         lastPurchased: serverTimestamp(),
+        numberOfPurchases: item.numberOfPurchases + 1,
+        nextPurchase: calculateEstimate(
+          item.purchaseInterval,
+          daysSincePurchased,
+          item.numberOfPurchases,
+        ),
       });
     } else {
-      await updateDoc(docRef, {
+      updateDoc(docRef, {
         lastPurchased: null,
+        numberOfPurchases: item.numberOfPurchases - 1,
       });
       setDaysSincePurchased(null);
     }
