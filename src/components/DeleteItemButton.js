@@ -16,12 +16,10 @@ function DeleteItemButton(item) {
     <div>
       <button onClick={() => setIsOpen(true)}>Delete</button>
 
-      <Modal
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-        handleDelete={() => handleDelete(item)}
-      >
+      <Modal open={isOpen}>
         <p>Are you sure you want to delete?</p>
+        <button onClick={() => handleDelete(item)}>Yes</button>
+        <button onClick={() => setIsOpen(false)}>Cancel</button>
       </Modal>
     </div>
   );
