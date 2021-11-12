@@ -21,7 +21,7 @@ function DeleteItemButton(item) {
         onClose={() => setIsOpen(false)}
         handleDelete={() => handleDelete(item)}
       >
-        Are you sure you want to delete?
+        <p>Are you sure you want to delete?</p>
       </Modal>
     </div>
   );

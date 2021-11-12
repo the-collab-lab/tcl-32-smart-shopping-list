@@ -7,8 +7,11 @@ const modalStyles = {
   left: '50%',
   transform: 'translate(-50%,-50%',
   backgroundColor: '#FFF',
-  padding: '50px',
+  padding: '40px',
   zIndex: 1000,
+  width: 200,
+  borderRadius: '0.3rem',
+  textAlign: 'center',
 };
 
 const overlayStyles = {
