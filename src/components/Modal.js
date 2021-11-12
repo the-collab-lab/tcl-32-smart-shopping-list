@@ -7,8 +7,11 @@ const modalStyles = {
   left: '50%',
   transform: 'translate(-50%,-50%',
   backgroundColor: '#FFF',
-  padding: '50px',
+  padding: '40px',
   zIndex: 1000,
+  width: 200,
+  borderRadius: '0.3rem',
+  textAlign: 'center',
 };
 
 const overlayStyles = {
@@ -21,17 +24,13 @@ const overlayStyles = {
   zIndex: 1000,
 };
 
-export default function Modal({ open, children, onClose, handleDelete }) {
+export default function Modal({ open, children }) {
   if (!open) return null;
 
   return ReactDom.createPortal(
     <>
       <div style={overlayStyles} />
-      <div style={modalStyles}>
-        {children}
-        <button onClick={handleDelete}>Yes</button>
-        <button onClick={onClose}>Cancel</button>
-      </div>
+      <div style={modalStyles}>{children}</div>
     </>,
     document.getElementById('portal'),
   );

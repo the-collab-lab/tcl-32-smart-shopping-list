@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { updateDoc, serverTimestamp, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './Item.css';
+import DeleteItemButton from './DeleteItemButton';
 
 function Item({ item, userToken }) {
   const [checked, setChecked] = useState(false);
@@ -57,6 +58,7 @@ function Item({ item, userToken }) {
         />
       </form>
       <p className="item-name">{item.itemName}</p>
+      <DeleteItemButton item={item.id} userToken={userToken} />
     </li>
   );
 }

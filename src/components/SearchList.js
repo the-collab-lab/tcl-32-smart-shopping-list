@@ -40,12 +40,7 @@ export default function SearchList({ listItems, userToken }) {
       )}
       <ul className="items-list">
         {filteredList.map((item) => {
-          return (
-            <div>
-              <Item key={item.id} item={item} userToken={userToken} />
-              <DeleteItemButton item={item.id} userToken={userToken} />
-            </div>
-          );
+          return <Item key={item.id} item={item} userToken={userToken} />;
         })}
       </ul>
     </div>
