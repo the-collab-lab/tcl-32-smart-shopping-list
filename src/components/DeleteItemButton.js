@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { doc, deleteDoc } from '@firebase/firestore';
 import { db } from '../lib/firebase';
-
-const handleDelete = async ({ userToken, item }) => {
-  const docRef = doc(db, 'users', userToken, 'list', item);
-  await deleteDoc(docRef);
-};
+import Modal from './Modal';
 
 function DeleteItemButton(item) {
-  return <button onClick={() => handleDelete(item)}>Delete</button>;
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleDelete = async ({ userToken, item, onClose }) => {
+    setIsOpen(false);
+    const docRef = doc(db, 'users', userToken, 'list', item);
+    await deleteDoc(docRef);
+  };
+
+  return (
+    <div>
+      <button onClick={() => setIsOpen(true)}>Delete</button>
+
+      <Modal
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        handleDelete={() => handleDelete(item)}
+      >
+        Are you sure you want to delete?
+      </Modal>
+    </div>
+  );
 }
 
 export default DeleteItemButton;
