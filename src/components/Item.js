@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { updateDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
+import { updateDoc, serverTimestamp, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import './Item.css';
 
 function Item({ item, userToken }) {
   const [checked, setChecked] = useState(false);
-  const [daysSincePurchased, setDaysSincePurchased] = useState();
+  const [daysSincePurchased, setDaysSincePurchased] = useState(0);
+  const [itemBackup, setItemBackup] = useState(item);
+  console.log('itemBackup', itemBackup);
 
   useEffect(() => {
     if (item.lastPurchased) {
@@ -19,7 +21,7 @@ function Item({ item, userToken }) {
   }, [item]);
 
   useEffect(() => {
-    if (daysSincePurchased > 1 || daysSincePurchased === null) {
+    if (daysSincePurchased > 1 || daysSincePurchased === 0) {
       setChecked(false);
     } else if (daysSincePurchased < 1) {
       setChecked(true);
@@ -33,10 +35,11 @@ function Item({ item, userToken }) {
   const updateLastPurchased = async (event) => {
     const docRef = doc(db, 'users', `${userToken}`, 'list', item.id);
     if (event.target.checked) {
+      // setItemBackup(item)
       updateDoc(docRef, {
         lastPurchased: serverTimestamp(),
         numberOfPurchases: item.numberOfPurchases + 1,
-        nextPurchase: calculateEstimate(
+        daysUntilNextPurchase: calculateEstimate(
           item.purchaseInterval,
           daysSincePurchased,
           item.numberOfPurchases,
@@ -44,10 +47,11 @@ function Item({ item, userToken }) {
       });
     } else {
       updateDoc(docRef, {
-        lastPurchased: null,
-        numberOfPurchases: item.numberOfPurchases - 1,
+        lastPurchased: itemBackup.lastPurchased,
+        numberOfPurchases: itemBackup.numberOfPurchases,
+        daysUntilNextPurchase: itemBackup.daysUntilNextPurchase,
       });
-      setDaysSincePurchased(null);
+      setDaysSincePurchased(0);
     }
   };
 

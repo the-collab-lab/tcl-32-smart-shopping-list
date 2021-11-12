@@ -57,7 +57,7 @@ function AddItemForm() {
       purchaseInterval: purchaseInterval,
       userToken: userToken,
       lastPurchased: lastPurchased,
-      nextPurchase: null,
+      daysUntilNextPurchase: null,
       numberOfPurchases: 0,
     });
   };
