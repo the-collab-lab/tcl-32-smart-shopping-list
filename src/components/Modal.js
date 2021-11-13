@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import ReactDom from 'react-dom';
 
 const modalStyles = {
@@ -24,7 +24,7 @@ const overlayStyles = {
   zIndex: 1000,
 };
 
-export default function Modal({ open, children }) {
+export default forwardRef(function Modal({ open, children, modalRef }) {
   if (!open) return null;
 
   return ReactDom.createPortal(
@@ -34,4 +34,4 @@ export default function Modal({ open, children }) {
     </div>,
     document.getElementById('portal'),
   );
-}
+});
