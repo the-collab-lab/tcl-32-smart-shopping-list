@@ -28,10 +28,10 @@ export default function Modal({ open, children }) {
   if (!open) return null;
 
   return ReactDom.createPortal(
-    <>
+    <div role="alert" aria-describedby="dialog-description">
       <div style={overlayStyles} />
       <div style={modalStyles}>{children}</div>
-    </>,
+    </div>,
     document.getElementById('portal'),
   );
 }
