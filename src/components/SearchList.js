@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { normalizeValue } from './Helper';
 import Item from './Item';
-import DeleteItemButton from './DeleteItemButton';
 
 export default function SearchList({ listItems, userToken }) {
   const [searchedItem, setSearchedItem] = useState('');
