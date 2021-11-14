@@ -7,8 +7,7 @@ import './Item.css';
 function Item({ item, userToken }) {
   const [checked, setChecked] = useState(false);
   const [daysSincePurchased, setDaysSincePurchased] = useState(0);
-  const [itemBackup, setItemBackup] = useState(item);
-  console.log('itemBackup', itemBackup);
+  const [itemBackup] = useState(item);
 
   useEffect(() => {
     if (item.lastPurchased) {
@@ -21,11 +20,12 @@ function Item({ item, userToken }) {
   }, [item]);
 
   useEffect(() => {
-    if (daysSincePurchased > 1 || daysSincePurchased === 0) {
-      setChecked(false);
-    } else if (daysSincePurchased < 1) {
+    if (daysSincePurchased < 1 && daysSincePurchased !== 0) {
       setChecked(true);
+      return;
     }
+
+    setChecked(false);
   }, [daysSincePurchased, checked]);
 
   const handleCheckboxChange = () => {
@@ -35,7 +35,6 @@ function Item({ item, userToken }) {
   const updateLastPurchased = async (event) => {
     const docRef = doc(db, 'users', `${userToken}`, 'list', item.id);
     if (event.target.checked) {
-      // setItemBackup(item)
       updateDoc(docRef, {
         lastPurchased: serverTimestamp(),
         numberOfPurchases: item.numberOfPurchases + 1,
