@@ -3,13 +3,14 @@ import { doc, deleteDoc } from '@firebase/firestore';
 import { db } from '../lib/firebase';
 import Modal from './Modal';
 
-function DeleteItemButton(item) {
+function DeleteItemButton({ item, userToken, focusOnInput }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleDelete = async ({ userToken, item, onClose }) => {
+  const handleDelete = async ({ userToken, item, focusOnInput }) => {
     setIsOpen(false);
     const docRef = doc(db, 'users', userToken, 'list', item);
     await deleteDoc(docRef);
+    focusOnInput();
   };
 
   return (
@@ -19,7 +20,7 @@ function DeleteItemButton(item) {
       <Modal open={isOpen}>
         <p>Are you sure you want to delete?</p>
         <button
-          onClick={() => handleDelete(item)}
+          onClick={() => handleDelete({ item, userToken, focusOnInput })}
           aria-label="Yes, delete this item."
         >
           Yes
