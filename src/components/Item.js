@@ -7,7 +7,6 @@ import './Item.css';
 function Item({ item, userToken }) {
   const [checked, setChecked] = useState(false);
   const [daysSincePurchased, setDaysSincePurchased] = useState(0);
-  const [itemBackup] = useState(item);
 
   useEffect(() => {
     if (item.lastPurchased) {
@@ -29,29 +28,38 @@ function Item({ item, userToken }) {
   }, [daysSincePurchased, checked]);
 
   const handleCheckboxChange = () => {
+    if (!checked) {
+      handleCheck();
+    } else {
+      handleUnCheck();
+    }
+
     setChecked(!checked);
   };
 
-  const updateLastPurchased = async (event) => {
+  const handleCheck = async () => {
     const docRef = doc(db, 'users', `${userToken}`, 'list', item.id);
-    if (event.target.checked) {
-      updateDoc(docRef, {
-        lastPurchased: serverTimestamp(),
-        numberOfPurchases: item.numberOfPurchases + 1,
-        daysUntilNextPurchase: calculateEstimate(
-          item.purchaseInterval,
-          daysSincePurchased,
-          item.numberOfPurchases,
-        ),
-      });
-    } else {
-      updateDoc(docRef, {
-        lastPurchased: itemBackup.lastPurchased,
-        numberOfPurchases: itemBackup.numberOfPurchases,
-        daysUntilNextPurchase: itemBackup.daysUntilNextPurchase,
-      });
-      setDaysSincePurchased(0);
-    }
+    updateDoc(docRef, {
+      backupLastPurchased: item.lastPurchased,
+      backupDaysUntilNextPurchase: item.daysUntilNextPurchase,
+      backupNumberOfPurchases: item.numberOfPurchases,
+      lastPurchased: serverTimestamp(),
+      numberOfPurchases: item.numberOfPurchases + 1,
+      daysUntilNextPurchase: calculateEstimate(
+        item.purchaseInterval,
+        daysSincePurchased,
+        item.numberOfPurchases,
+      ),
+    });
+  };
+
+  const handleUnCheck = async () => {
+    const docRef = doc(db, 'users', `${userToken}`, 'list', item.id);
+    updateDoc(docRef, {
+      lastPurchased: item.backupLastPurchased,
+      numberOfPurchases: item.backupNumberOfPurchases,
+      daysUntilNextPurchase: item.backupDaysUntilNextPurchase,
+    });
   };
 
   return (
@@ -64,7 +72,6 @@ function Item({ item, userToken }) {
           checked={checked}
           name="itemPurchased"
           onChange={handleCheckboxChange}
-          onClick={updateLastPurchased}
         />
       </form>
       <p className="item-name">{item.itemName}</p>

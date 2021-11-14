@@ -59,6 +59,9 @@ function AddItemForm() {
       lastPurchased: lastPurchased,
       daysUntilNextPurchase: null,
       numberOfPurchases: 0,
+      backupLastPurchased: lastPurchased,
+      backupDaysUntilNextPurchase: null,
+      backupNumberOfPurchases: 0,
     });
   };
 
