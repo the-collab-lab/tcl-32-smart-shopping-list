@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { doc, deleteDoc } from '@firebase/firestore';
 import { db } from '../lib/firebase';
 import Modal from './Modal';
@@ -12,6 +12,18 @@ function DeleteItemButton({ item, userToken, focusOnInput }) {
     await deleteDoc(docRef);
     focusOnInput();
   };
+
+  useEffect(() => {
+    const closeModal = (e) => {
+      if (e.keyCode === 27) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', closeModal);
+    return () => {
+      window.removeEventListener('keydown', closeModal);
+    };
+  }, []);
 
   return (
     <div>
