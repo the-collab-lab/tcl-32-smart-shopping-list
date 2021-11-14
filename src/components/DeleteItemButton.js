@@ -15,7 +15,7 @@ function DeleteItemButton({ item, userToken, focusOnInput }) {
 
   useEffect(() => {
     const closeModal = (e) => {
-      if (e.keyCode === 27) {
+      if (e.key === 'Escape') {
         setIsOpen(false);
       }
     };
