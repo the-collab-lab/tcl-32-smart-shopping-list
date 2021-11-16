@@ -20,6 +20,11 @@ function ItemList({ userToken }) {
     return unsubscribe;
   }, [userToken]);
 
+  // sort the alphabetical list in place, and return items with equal values for daysUntilNextPurchase in alphabetical order
+  listItems.sort(
+    (itemA, itemB) => itemA.daysUntilNextPurchase - itemB.daysUntilNextPurchase,
+  );
+
   return (
     <div>
       <div>
