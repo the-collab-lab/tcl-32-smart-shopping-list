@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot, query } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { NavLink } from 'react-router-dom';
 import SearchList from './SearchList';
@@ -8,7 +8,10 @@ function ItemList({ userToken }) {
   const [listItems, setListItems] = useState([]);
 
   useEffect(() => {
-    const q = query(collection(db, 'users', `${userToken}`, 'list'));
+    const q = query(
+      collection(db, 'users', `${userToken}`, 'list'),
+      orderBy('itemNameNormalize', 'asc'),
+    );
 
     const unsubscribe = onSnapshot(q, (snapshot) =>
       setListItems(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))),
