@@ -26,7 +26,7 @@ function Item({ item, userToken, focusOnInput }) {
     }
 
     setChecked(false);
-  }, [daysSincePurchased, checked]);
+  }, [daysSincePurchased]);
 
   const handleCheckboxChange = () => {
     if (!checked) {
