@@ -6,7 +6,7 @@ function List() {
 
   return (
     <div className="list-view">
-      <h2>Shared list token: {userToken}</h2>
+      <h2>List token: {userToken}</h2>
       <ItemList userToken={userToken} />
     </div>
   );

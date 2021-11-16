@@ -22,6 +22,10 @@ export default function SearchList({ listItems, userToken }) {
     return item.itemNameNormalize.includes(normalizedSearch);
   });
 
+  const focusOnInput = () => {
+    searchInputRef.current.focus();
+  };
+
   return (
     <div>
       Filter Items:
@@ -39,7 +43,14 @@ export default function SearchList({ listItems, userToken }) {
       )}
       <ul className="items-list">
         {filteredList.map((item) => {
-          return <Item key={item.id} item={item} userToken={userToken} />;
+          return (
+            <Item
+              key={item.id}
+              item={item}
+              userToken={userToken}
+              focusOnInput={focusOnInput}
+            />
+          );
         })}
       </ul>
     </div>

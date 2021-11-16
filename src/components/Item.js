@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { updateDoc, serverTimestamp, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import './Item.css';
+import DeleteItemButton from './DeleteItemButton';
 
-function Item({ item, userToken }) {
+function Item({ item, userToken, focusOnInput }) {
   const [checked, setChecked] = useState(false);
   const [daysSincePurchased, setDaysSincePurchased] = useState();
 
@@ -46,9 +47,9 @@ function Item({ item, userToken }) {
   return (
     <li className="item">
       <form>
-        <label htmlFor="itemPurchased">Purchased</label>
+        <label htmlFor={`itemPurchased-${item.id}`}>Purchased</label>
         <input
-          id="itemPurchased"
+          id={`itemPurchased-${item.id}`}
           type="checkbox"
           checked={checked}
           name="itemPurchased"
@@ -57,6 +58,11 @@ function Item({ item, userToken }) {
         />
       </form>
       <p className="item-name">{item.itemName}</p>
+      <DeleteItemButton
+        item={item.id}
+        userToken={userToken}
+        focusOnInput={focusOnInput}
+      />
     </li>
   );
 }
