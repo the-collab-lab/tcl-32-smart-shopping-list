@@ -46,10 +46,12 @@ function Item({ item, userToken, focusOnInput }) {
       backupNumberOfPurchases: item.numberOfPurchases,
       lastPurchased: serverTimestamp(),
       numberOfPurchases: item.numberOfPurchases + 1,
-      daysUntilNextPurchase: calculateEstimate(
-        item.purchaseInterval,
-        daysSincePurchased,
-        item.numberOfPurchases,
+      daysUntilNextPurchase: parseInt(
+        calculateEstimate(
+          item.purchaseInterval,
+          daysSincePurchased,
+          item.numberOfPurchases,
+        ),
       ),
     });
   };
