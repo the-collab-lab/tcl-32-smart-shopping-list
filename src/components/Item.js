@@ -46,13 +46,17 @@ function Item({ item, userToken, focusOnInput }) {
       backupNumberOfPurchases: item.numberOfPurchases,
       lastPurchased: serverTimestamp(),
       numberOfPurchases: item.numberOfPurchases + 1,
-      daysUntilNextPurchase: calculateEstimate(
-        item.purchaseInterval,
-        daysSincePurchased,
-        item.numberOfPurchases,
+      daysUntilNextPurchase: parseInt(
+        calculateEstimate(
+          item.purchaseInterval,
+          daysSincePurchased,
+          item.numberOfPurchases,
+        ),
       ),
     });
   };
+
+  // const daysSincePurchasedWhole = daysSincePurchased.toFixed(0)
 
   const handleUnCheck = async () => {
     const docRef = doc(db, 'users', `${userToken}`, 'list', item.id);
@@ -64,7 +68,16 @@ function Item({ item, userToken, focusOnInput }) {
   };
 
   return (
-    <li className="item">
+    <li
+      className="item"
+      style={
+        item.daysUntilNextPurchase >= 2 && item.daysUntilNextPurchase <= 7
+          ? { backgroundColor: 'lightgreen' } // 2 thru 7 = lightgreen
+          : item.daysUntilNextPurchase >= 8 && item.daysUntilNextPurchase <= 30
+          ? { backgroundColor: 'lightblue' } // 8 thru 30 = lightblue
+          : { backgroundColor: 'lightgray' } // anything else = lightgray
+      }
+    >
       <form>
         <label htmlFor={`itemPurchased-${item.id}`}>Purchased</label>
         <input
@@ -76,6 +89,10 @@ function Item({ item, userToken, focusOnInput }) {
         />
       </form>
       <p className="item-name">{item.itemName}</p>
+      <p className="item-name">
+        daysUntilNextPurchase {item.daysUntilNextPurchase} day(s)
+      </p>
+      <p className="item-name">daysSincePurchased: {daysSincePurchased}</p>
       <DeleteItemButton
         item={item.id}
         userToken={userToken}
