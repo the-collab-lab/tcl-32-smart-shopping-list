@@ -4,6 +4,7 @@ import { db } from '../lib/firebase';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import './Item.css';
 import DeleteItemButton from './DeleteItemButton';
+import { calculateDaysSincePurchased } from './Helper';
 
 function Item({ item, userToken, focusOnInput }) {
   const [checked, setChecked] = useState(false);
@@ -11,11 +12,7 @@ function Item({ item, userToken, focusOnInput }) {
 
   useEffect(() => {
     if (item.lastPurchased) {
-      const lastPurchasedSeconds = item.lastPurchased.seconds;
-      const dateNowSeconds = Date.now() / 1000;
-      const differenceInSeconds = dateNowSeconds - lastPurchasedSeconds;
-
-      setDaysSincePurchased(differenceInSeconds / 86400);
+      setDaysSincePurchased(calculateDaysSincePurchased(item.lastPurchased));
     }
   }, [item]);
 

@@ -7,3 +7,13 @@ export const normalizeValue = (value) => {
     .replace(emojiRegex, '');
   return normalizedValue;
 };
+
+export const calculateDaysSincePurchased = (lastPurchased) => {
+  if (lastPurchased) {
+    const lastPurchasedSeconds = lastPurchased.seconds;
+    const dateNowSeconds = Date.now() / 1000;
+    const differenceInSeconds = dateNowSeconds - lastPurchasedSeconds;
+
+    return differenceInSeconds / 86400;
+  }
+};
