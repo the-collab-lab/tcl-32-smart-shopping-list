@@ -3,7 +3,6 @@ import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { NavLink } from 'react-router-dom';
 import SearchList from './SearchList';
-import { calculateDaysSincePurchased } from './Helper';
 
 function ItemList({ userToken }) {
   const [listItems, setListItems] = useState([]);
@@ -22,11 +21,11 @@ function ItemList({ userToken }) {
   }, [userToken]);
 
   /*
-         | itemA | itemB |
-  active | T     | T     | -> compare daysUntilNextPurchase
-         | T     | F     | -> return 1, itemA goes before itemB
-         | F     | T     | -> return -1, itemB goes before itemA
-         | F     | F     | -> compare daysUntilNextPurchase
+           | itemA | itemB |
+  isActive | T     | T     | -> compare daysUntilNextPurchase
+           | T     | F     | -> return 1, itemA goes before itemB
+           | F     | T     | -> return -1, itemB goes before itemA
+           | F     | F     | -> compare daysUntilNextPurchase
   */
 
   const isActive = (item) =>
@@ -39,7 +38,7 @@ function ItemList({ userToken }) {
       (isActive(itemA) && isActive(itemB)) ||
       (!isActive(itemA) && !isActive(itemB))
     ) {
-      return itemB.daysUntilNextPurchase - itemA.daysUntilNextPurchase;
+      return itemA.daysUntilNextPurchase - itemB.daysUntilNextPurchase;
     }
 
     if (isActive(itemA)) {
