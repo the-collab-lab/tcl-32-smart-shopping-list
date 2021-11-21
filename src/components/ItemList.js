@@ -20,14 +20,6 @@ function ItemList({ userToken }) {
     return unsubscribe;
   }, [userToken]);
 
-  /*
-           | itemA | itemB |
-  isActive | T     | T     | -> compare daysUntilNextPurchase
-           | T     | F     | -> return 1, itemA goes before itemB
-           | F     | T     | -> return -1, itemB goes before itemA
-           | F     | F     | -> compare daysUntilNextPurchase
-  */
-
   const isActive = (item) =>
     item !== null &&
     (item.daysSincePurchased * 2 <= item.daysUntilNextPurchase ||

@@ -53,8 +53,6 @@ function Item({ item, userToken, focusOnInput }) {
     });
   };
 
-  // const daysSincePurchasedWhole = daysSincePurchased.toFixed(0)
-
   const handleUnCheck = async () => {
     const docRef = doc(db, 'users', `${userToken}`, 'list', item.id);
     updateDoc(docRef, {
@@ -96,10 +94,6 @@ function Item({ item, userToken, focusOnInput }) {
         />
       </form>
       <p className="item-name">{item.itemName}</p>
-      <p className="item-name">
-        daysUntilNextPurchase {item.daysUntilNextPurchase} day(s)
-      </p>
-      <p className="item-name">daysSincePurchased: {daysSincePurchased}</p>
       <DeleteItemButton
         item={item.id}
         userToken={userToken}
