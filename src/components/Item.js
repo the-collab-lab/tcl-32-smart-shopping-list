@@ -62,26 +62,44 @@ function Item({ item, userToken, focusOnInput }) {
     });
   };
 
-  const checkboxStyle =
-    item.daysUntilNextPurchase >= 2 && item.daysUntilNextPurchase <= 7
-      ? { backgroundColor: 'lightgreen' } // 2 thru 7 = lightgreen
-      : item.daysUntilNextPurchase >= 8 && item.daysUntilNextPurchase <= 30
-      ? { backgroundColor: 'lightblue' } // 8 thru 30 = lightblue
-      : item.daysUntilNextPurchase > 30
-      ? { backgroundColor: 'lightyellow' } // 31+ = lightyellow
-      : { backgroundColor: 'lightgray' }; // anything else = lightgray
+  // move isActive to Helper.js, import to this file and ItemList.js
+  const isActive = (item) =>
+    item !== null &&
+    (item.daysSincePurchased * 2 <= item.daysUntilNextPurchase ||
+      item.numberOfPurchases > 1);
 
-  const checkboxAriaLabel =
-    item.daysUntilNextPurchase >= 2 && item.daysUntilNextPurchase <= 7
-      ? `${item.itemName} state: buy soon. Marked as purchased.` // 2 thru 7 = lightgreen
-      : item.daysUntilNextPurchase >= 8 && item.daysUntilNextPurchase <= 30
-      ? `${item.itemName} state: buy kind of soon. Marked as purchased.` // 8 thru 30 = lightblue
-      : item.daysUntilNextPurchase > 30
-      ? `${item.itemName} state: buy not soon. Marked as purchased.` // 31+ = lightyellow
-      : `${item.itemName} inactive. Marked as purchased.`; // anything else = lightgray
+  let checkboxStyle = {};
+  let nameAriaLabel = '';
+
+  switch (true) {
+    case !isActive(item):
+      checkboxStyle = { backgroundColor: 'lightgray' };
+      nameAriaLabel = `${item.itemName} is inactive.`;
+      break;
+    case item.daysUntilNextPurchase >= 2 && item.daysUntilNextPurchase <= 7:
+      checkboxStyle = { backgroundColor: 'lightgreen' };
+      nameAriaLabel = `Buy ${item.itemName} soon`;
+      break;
+    case item.daysUntilNextPurchase >= 8 && item.daysUntilNextPurchase <= 30:
+      checkboxStyle = { backgroundColor: 'lightblue' };
+      nameAriaLabel = `Buy ${item.itemName} kind of soon.`;
+      break;
+    case item.daysUntilNextPurchase > 30:
+      checkboxStyle = { backgroundColor: 'lightyellow' };
+      nameAriaLabel = `Buy ${item.itemName} not soon.`;
+      break;
+    default:
+      checkboxStyle = { backgroundColor: 'lightgray' };
+      nameAriaLabel = `${item.itemName} inactive.`;
+  }
+
+  console.log('itemName', item.itemName);
+  console.log('daysSincePurchased', daysSincePurchased);
+  console.log('numberOfPurchases', item.numberOfPurchases);
+  console.log('daysUntilNextPurchase', item.daysUntilNextPurchase);
 
   return (
-    <li className="item" style={checkboxStyle}>
+    <li aria-label={nameAriaLabel} className="item" style={checkboxStyle}>
       <form>
         <label htmlFor={`itemPurchased-${item.id}`}>Purchased</label>
         <input
@@ -90,7 +108,6 @@ function Item({ item, userToken, focusOnInput }) {
           checked={checked}
           name="itemPurchased"
           onChange={handleCheckboxChange}
-          aria-label={checkboxAriaLabel}
         />
       </form>
       <p className="item-name">{item.itemName}</p>
