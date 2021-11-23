@@ -4,7 +4,7 @@ import { db } from '../lib/firebase';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import './Item.css';
 import DeleteItemButton from './DeleteItemButton';
-import { calculateDaysSincePurchased } from './Helper';
+import { calculateDaysSincePurchased, isActive } from './Helper';
 
 function Item({ item, userToken, focusOnInput }) {
   const [checked, setChecked] = useState(false);
@@ -49,6 +49,7 @@ function Item({ item, userToken, focusOnInput }) {
           daysSincePurchased,
           item.numberOfPurchases,
         ),
+        10,
       ),
     });
   };
@@ -62,17 +63,11 @@ function Item({ item, userToken, focusOnInput }) {
     });
   };
 
-  // move isActive to Helper.js, import to this file and ItemList.js
-  const isActive = (item) =>
-    item !== null &&
-    (item.daysSincePurchased * 2 <= item.daysUntilNextPurchase ||
-      item.numberOfPurchases > 1);
-
   let checkboxStyle = {};
   let nameAriaLabel = '';
 
   switch (true) {
-    case !isActive(item):
+    case !isActive(item, daysSincePurchased):
       checkboxStyle = { backgroundColor: 'lightgray' };
       nameAriaLabel = `${item.itemName} is inactive.`;
       break;
@@ -92,11 +87,6 @@ function Item({ item, userToken, focusOnInput }) {
       checkboxStyle = { backgroundColor: 'lightgray' };
       nameAriaLabel = `${item.itemName} inactive.`;
   }
-
-  console.log('itemName', item.itemName);
-  console.log('daysSincePurchased', daysSincePurchased);
-  console.log('numberOfPurchases', item.numberOfPurchases);
-  console.log('daysUntilNextPurchase', item.daysUntilNextPurchase);
 
   return (
     <li aria-label={nameAriaLabel} className="item" style={checkboxStyle}>

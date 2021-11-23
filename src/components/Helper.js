@@ -17,3 +17,8 @@ export const calculateDaysSincePurchased = (lastPurchased) => {
     return differenceInSeconds / 86400;
   }
 };
+
+export const isActive = (item, daysSincePurchased) =>
+  item !== null &&
+  (daysSincePurchased * 2 <= item.daysUntilNextPurchase ||
+    item.numberOfPurchases > 1);
