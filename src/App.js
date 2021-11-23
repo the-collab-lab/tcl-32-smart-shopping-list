@@ -44,7 +44,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App h-screen bg-main-image bg-no-repeat bg-contain bg-center">
       <Router>
         {userToken && (
           <div className="linkContainerStyle">
