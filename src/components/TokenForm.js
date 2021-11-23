@@ -11,7 +11,6 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.docs.length) {
-      console.log('querySnapshot', querySnapshot.docs);
       grabExistingTokenAndSaveToLocalStorage(e.target.sharedToken.value);
     } else {
       alert('Error: This token does not exist');

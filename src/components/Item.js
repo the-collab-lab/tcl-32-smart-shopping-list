@@ -4,6 +4,7 @@ import { db } from '../lib/firebase';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import './Item.css';
 import DeleteItemButton from './DeleteItemButton';
+import { calculateDaysSincePurchased, isActive } from './Helper';
 
 function Item({ item, userToken, focusOnInput }) {
   const [checked, setChecked] = useState(false);
@@ -11,11 +12,7 @@ function Item({ item, userToken, focusOnInput }) {
 
   useEffect(() => {
     if (item.lastPurchased) {
-      const lastPurchasedSeconds = item.lastPurchased.seconds;
-      const dateNowSeconds = Date.now() / 1000;
-      const differenceInSeconds = dateNowSeconds - lastPurchasedSeconds;
-
-      setDaysSincePurchased(differenceInSeconds / 86400);
+      setDaysSincePurchased(calculateDaysSincePurchased(item.lastPurchased));
     }
   }, [item]);
 
@@ -46,10 +43,13 @@ function Item({ item, userToken, focusOnInput }) {
       backupNumberOfPurchases: item.numberOfPurchases,
       lastPurchased: serverTimestamp(),
       numberOfPurchases: item.numberOfPurchases + 1,
-      daysUntilNextPurchase: calculateEstimate(
-        item.purchaseInterval,
-        daysSincePurchased,
-        item.numberOfPurchases,
+      daysUntilNextPurchase: parseInt(
+        calculateEstimate(
+          item.purchaseInterval,
+          daysSincePurchased,
+          item.numberOfPurchases,
+        ),
+        10,
       ),
     });
   };
@@ -63,8 +63,33 @@ function Item({ item, userToken, focusOnInput }) {
     });
   };
 
+  let checkboxStyle = {};
+  let nameAriaLabel = '';
+
+  switch (true) {
+    case !isActive(item, daysSincePurchased):
+      checkboxStyle = { backgroundColor: 'lightgray' };
+      nameAriaLabel = `${item.itemName} is inactive.`;
+      break;
+    case item.daysUntilNextPurchase >= 2 && item.daysUntilNextPurchase <= 7:
+      checkboxStyle = { backgroundColor: 'lightgreen' };
+      nameAriaLabel = `Buy ${item.itemName} soon`;
+      break;
+    case item.daysUntilNextPurchase >= 8 && item.daysUntilNextPurchase <= 30:
+      checkboxStyle = { backgroundColor: 'lightblue' };
+      nameAriaLabel = `Buy ${item.itemName} kind of soon.`;
+      break;
+    case item.daysUntilNextPurchase > 30:
+      checkboxStyle = { backgroundColor: 'lightyellow' };
+      nameAriaLabel = `Buy ${item.itemName} not soon.`;
+      break;
+    default:
+      checkboxStyle = { backgroundColor: 'lightgray' };
+      nameAriaLabel = `${item.itemName} inactive.`;
+  }
+
   return (
-    <li className="item">
+    <li aria-label={nameAriaLabel} className="item" style={checkboxStyle}>
       <form>
         <label htmlFor={`itemPurchased-${item.id}`}>Purchased</label>
         <input
