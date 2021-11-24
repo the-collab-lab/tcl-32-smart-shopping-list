@@ -69,38 +69,40 @@ function Item({ item, userToken, focusOnInput }) {
   switch (true) {
     case !isActive(item, daysSincePurchased):
       checkboxStyle = { backgroundColor: 'lightgray' };
-      nameAriaLabel = `${item.itemName} is inactive.`;
+      nameAriaLabel = `${item.itemName}. is inactive.`;
       break;
     case item.daysUntilNextPurchase >= 2 && item.daysUntilNextPurchase <= 7:
       checkboxStyle = { backgroundColor: 'lightgreen' };
-      nameAriaLabel = `Buy ${item.itemName} soon`;
+      nameAriaLabel = `${item.itemName}. estimated purchase time is soon`;
       break;
     case item.daysUntilNextPurchase >= 8 && item.daysUntilNextPurchase <= 30:
       checkboxStyle = { backgroundColor: 'lightblue' };
-      nameAriaLabel = `Buy ${item.itemName} kind of soon.`;
+      nameAriaLabel = `${item.itemName}. estimated purchase time is kind of soon.`;
       break;
     case item.daysUntilNextPurchase > 30:
       checkboxStyle = { backgroundColor: 'lightyellow' };
-      nameAriaLabel = `Buy ${item.itemName} not soon.`;
+      nameAriaLabel = `${item.itemName}. estimated purchase time is not soon.`;
       break;
     default:
       checkboxStyle = { backgroundColor: 'lightgray' };
-      nameAriaLabel = `${item.itemName} inactive.`;
+      nameAriaLabel = `${item.itemName}. is inactive.`;
   }
 
   return (
-    <li aria-label={nameAriaLabel} className="item" style={checkboxStyle}>
+    <li className="item" style={checkboxStyle}>
       <form>
-        <label htmlFor={`itemPurchased-${item.id}`}>Purchased</label>
         <input
           id={`itemPurchased-${item.id}`}
           type="checkbox"
+          aria-label={nameAriaLabel}
           checked={checked}
           name="itemPurchased"
           onChange={handleCheckboxChange}
         />
       </form>
-      <p className="item-name">{item.itemName}</p>
+      <p className="item-name" aria-hidden="true">
+        {item.itemName}
+      </p>
       <DeleteItemButton
         item={item.id}
         userToken={userToken}
