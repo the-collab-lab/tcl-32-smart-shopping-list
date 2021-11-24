@@ -4,10 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        // 'main-image': "url('./img/placeholder.jpg')",
-        'main-image': `url('${
-          process.env.PUBLIC_URL ? process.env.PUBLIC_URL : '.'
-        }/img/placeholder.jpg')`,
+        'main-image': "url('/src/img/placeholder.jpg')",
       },
     },
   },
