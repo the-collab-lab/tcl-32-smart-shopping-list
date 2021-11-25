@@ -63,51 +63,62 @@ function Item({ item, userToken, focusOnInput }) {
     });
   };
 
-  let checkboxStyle = {};
+  let itemClass = '';
   let nameAriaLabel = '';
 
   switch (true) {
     case !isActive(item, daysSincePurchased):
-      checkboxStyle = { backgroundColor: 'lightgray' };
+      itemClass = 'bg-gray-300';
       nameAriaLabel = `${item.itemName}. is inactive.`;
       break;
     case item.daysUntilNextPurchase >= 2 && item.daysUntilNextPurchase <= 7:
-      checkboxStyle = { backgroundColor: 'lightgreen' };
+      itemClass = 'bg-strong-lime-green';
       nameAriaLabel = `${item.itemName}. estimated purchase time is soon`;
       break;
     case item.daysUntilNextPurchase >= 8 && item.daysUntilNextPurchase <= 30:
-      checkboxStyle = { backgroundColor: 'lightblue' };
+      itemClass = 'bg-maroon-flush';
       nameAriaLabel = `${item.itemName}. estimated purchase time is kind of soon.`;
       break;
     case item.daysUntilNextPurchase > 30:
-      checkboxStyle = { backgroundColor: 'lightyellow' };
+      itemClass = 'bg-red-damask';
       nameAriaLabel = `${item.itemName}. estimated purchase time is not soon.`;
       break;
     default:
-      checkboxStyle = { backgroundColor: 'lightgray' };
+      itemClass = 'bg-gray-300';
       nameAriaLabel = `${item.itemName}. is inactive.`;
   }
 
   return (
-    <li className="item" style={checkboxStyle}>
-      <form>
-        <input
-          id={`itemPurchased-${item.id}`}
-          type="checkbox"
-          aria-label={nameAriaLabel}
-          checked={checked}
-          name="itemPurchased"
-          onChange={handleCheckboxChange}
+    <li
+      className="item border-gray-400 flex flex-row mb-2 w-full"
+      // style={checkboxStyle}
+    >
+      <div
+        class={`${itemClass} shadow select-none cursor-pointer dark:bg-gray-800 rounded-md flex flex-1 items-center p-4`}
+      >
+        <div className="flex flex-col w-5 h-5 justify-center items-center mr-4">
+          <form>
+            <input
+              id={`itemPurchased-${item.id}`}
+              type="checkbox"
+              aria-label={nameAriaLabel}
+              checked={checked}
+              name="itemPurchased"
+              onChange={handleCheckboxChange}
+            />
+          </form>
+        </div>
+        <div className="flex flex-col h-5 justify-center items-center mr-4">
+          <p className="item-name" aria-hidden="true">
+            {item.itemName}
+          </p>
+        </div>
+        <DeleteItemButton
+          item={item.id}
+          userToken={userToken}
+          focusOnInput={focusOnInput}
         />
-      </form>
-      <p className="item-name" aria-hidden="true">
-        {item.itemName}
-      </p>
-      <DeleteItemButton
-        item={item.id}
-        userToken={userToken}
-        focusOnInput={focusOnInput}
-      />
+      </div>
     </li>
   );
 }

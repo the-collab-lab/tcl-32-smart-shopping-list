@@ -41,18 +41,20 @@ export default function SearchList({ listItems, userToken }) {
           X
         </button>
       )}
-      <ul className="items-list">
-        {filteredList.map((item) => {
-          return (
-            <Item
-              key={item.id}
-              item={item}
-              userToken={userToken}
-              focusOnInput={focusOnInput}
-            />
-          );
-        })}
-      </ul>
+      <div className="container flex flex-col mx-auto w-full items-center justify-center">
+        <ul className="items-list flex flex-col">
+          {filteredList.map((item) => {
+            return (
+              <Item
+                key={item.id}
+                item={item}
+                userToken={userToken}
+                focusOnInput={focusOnInput}
+              />
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
