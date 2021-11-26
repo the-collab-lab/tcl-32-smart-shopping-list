@@ -6,7 +6,9 @@ function List() {
 
   return (
     <div className="list-view">
-      <h2>List token: {userToken}</h2>
+      <h2 className="flex text-white bg-red-500 border-0 justify-center">
+        List token: {userToken}
+      </h2>
       <ItemList userToken={userToken} />
     </div>
   );

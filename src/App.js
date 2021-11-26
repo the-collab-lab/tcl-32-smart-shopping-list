@@ -44,9 +44,11 @@ function App() {
   }
 
   return (
-    <div className="App h-screen bg-main-image bg-no-repeat bg-contain bg-center">
+    <div className="App h-screen bg-main-image bg-no-repeat bg-contain bg-center text-center justify-center">
       <Router>
-        <h1>Smart Shopping List</h1>
+        <h1 className="flex text-white bg-red-500 border-0 p-3  justify-center">
+          Smart Shopping List
+        </h1>
         <Switch>
           <Route exact path="/">
             {userToken ? (
