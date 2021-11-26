@@ -89,12 +89,9 @@ function Item({ item, userToken, focusOnInput }) {
   }
 
   return (
-    <li
-      className="item border-gray-400 flex flex-row mb-2 w-full"
-      // style={checkboxStyle}
-    >
+    <li className="item border-gray-400 flex flex-row mb-2 w-9/12 md:w-2/4">
       <div
-        class={`${itemClass} shadow select-none cursor-pointer dark:bg-gray-800 rounded-md flex flex-1 items-center p-4`}
+        className={`${itemClass} shadow select-none cursor-pointer dark:bg-gray-800 rounded-md flex flex-1 items-center p-4 bg-opacity-60`}
       >
         <div className="flex flex-col w-5 h-5 justify-center items-center mr-4">
           <form>
@@ -108,8 +105,8 @@ function Item({ item, userToken, focusOnInput }) {
             />
           </form>
         </div>
-        <div className="flex flex-col h-5 justify-center items-center mr-4">
-          <p className="item-name" aria-hidden="true">
+        <div className="flex-1 pl-1 md:mr-20 flex flex-row justify-center">
+          <p className="font-sans font-bold" aria-hidden="true">
             {item.itemName}
           </p>
         </div>
