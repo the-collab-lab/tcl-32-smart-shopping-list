@@ -91,7 +91,7 @@ function Item({ item, userToken, focusOnInput }) {
   return (
     <li className="item border-gray-400 flex flex-row mb-2 w-9/12 md:w-2/4">
       <div
-        className={`${itemClass} shadow select-none cursor-pointer dark:bg-gray-800 rounded-md flex flex-1 items-center p-4 bg-opacity-60`}
+        className={`${itemClass} shadow select-none dark:bg-gray-800 rounded-md flex flex-1 items-center p-4 bg-opacity-60`}
       >
         <div className="flex flex-col w-5 h-5 justify-center items-center mr-4">
           <form>

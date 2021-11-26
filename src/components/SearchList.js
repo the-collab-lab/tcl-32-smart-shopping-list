@@ -42,7 +42,7 @@ export default function SearchList({ listItems, userToken }) {
         </button>
       )}
       <div className="container flex flex-col mx-auto w-full items-center justify-center">
-        <ul className="items-list flex flex-col w-full">
+        <ul className="items-list flex flex-col items-center w-full">
           {filteredList.map((item) => {
             return (
               <Item
