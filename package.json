@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.4.1",
+    "@tailwindcss/forms": "^0.3.4",
     "@the-collab-lab/shopping-list-utils": "^1.0.3",
     "firebase": "^9.1.1",
     "focus-trap-react": "^8.8.2",
