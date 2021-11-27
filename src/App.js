@@ -46,9 +46,11 @@ function App() {
   return (
     <div className="App h-screen bg-main-image bg-no-repeat bg-contain bg-center text-center justify-center">
       <Router>
-        <h1 className="flex text-white bg-red-500 border-0 p-3  justify-center">
-          Smart Shopping List
-        </h1>
+        <div className="flex justify-center items-center">
+          <h1 className="flex justify-center items-center text-white bg-maroon-flush text-4xl font-bold rounded-md p-5 flex flex-row mb-2 w-9/12 md:w-full">
+            Smart Shopping List
+          </h1>
+        </div>
         <Switch>
           <Route exact path="/">
             {userToken ? (
@@ -74,10 +76,18 @@ function App() {
         </Switch>
         {userToken && (
           <div className="linkContainerStyle">
-            <NavLink activeClassName="active" className="navLink" to="/list">
+            <NavLink
+              activeClassName="active"
+              className="bg-ronchi-yellow font-semibold text-white p-2 w-1/2  rounded-full hover:bg-red-damask focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
+              to="/list"
+            >
               List
             </NavLink>
-            <NavLink activeClassName="active" className="navLink" to="/additem">
+            <NavLink
+              activeClassName="active"
+              className="bg-strong-lime-green font-semibold text-white p-2 w-1/2 rounded-full hover:bg-maroon-flush focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
+              to="/additem"
+            >
               Add Item
             </NavLink>
           </div>
