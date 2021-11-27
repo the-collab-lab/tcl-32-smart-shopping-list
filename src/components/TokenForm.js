@@ -20,8 +20,13 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
 
   return (
     <form onSubmit={handleTokenSubmit}>
-      <label>
-        <input placeholder="Enter Token Here" type="text" id="sharedToken" />
+      <label className="block">
+        <input
+          placeholder="Enter Token Here"
+          type="text"
+          id="sharedToken"
+          className="w-7/12 md:w-1/2 rounded-md bg-white bg-opacity-90 border-gray-300 border-2 focus:bg-white focus:border-strong-lime-green focus:ring-0 text-center focus:placeholder-transparent"
+        />
       </label>
       <button id="addToken" type="submit" className="addTokenSubmitButton">
         Add Token

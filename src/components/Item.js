@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { updateDoc, serverTimestamp, doc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
-import './Item.css';
 import DeleteItemButton from './DeleteItemButton';
 import { calculateDaysSincePurchased, isActive } from './Helper';
 
