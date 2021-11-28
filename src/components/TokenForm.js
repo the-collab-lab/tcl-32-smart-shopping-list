@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { db } from '../lib/firebase';
 import { collection, where, query, getDocs } from 'firebase/firestore';
 
 export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
+  const [toast, setToast] = useState(false);
+
   const handleTokenSubmit = async (e) => {
     e.preventDefault();
     const token = e.target.sharedToken.value;
@@ -13,9 +15,17 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
     if (querySnapshot.docs.length) {
       grabExistingTokenAndSaveToLocalStorage(e.target.sharedToken.value);
     } else {
-      alert('Error: This token does not exist');
+      triggerFormValidationMessage();
       e.target.reset();
     }
+  };
+
+  const triggerFormValidationMessage = () => {
+    const formInput = document.getElementById('sharedToken');
+    setToast(true);
+    formInput.onfocus = () => {
+      setToast(false);
+    };
   };
 
   return (
@@ -24,6 +34,14 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
         onSubmit={handleTokenSubmit}
         className="flex-1 flex flex-col align justify-center items-center mt-8 w-full"
       >
+        {toast ? (
+          <p
+            className="flex items-center font-sans font-medium tracking-wide text-white  text-xs mt-1 ml-1 p-1 m-1 bg-maroon-flush bg-opacity-90 text-center rounded-md"
+            aria-label="This token does not exist."
+          >
+            This token does not exist.
+          </p>
+        ) : null}
         <label className="block">
           <input
             placeholder="Enter Token Here"
@@ -32,6 +50,7 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
             className="w-full rounded-md bg-white bg-opacity-90 border-gray-300 border-2 focus:bg-white focus:border-strong-lime-green focus:ring-0 text-center font-sans focus:placeholder-transparent"
           />
         </label>
+
         <button
           id="addToken"
           type="submit"

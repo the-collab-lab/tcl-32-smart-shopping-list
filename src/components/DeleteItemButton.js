@@ -69,7 +69,7 @@ function DeleteItemButton({ item, userToken, focusOnInput }) {
                   className="text-lg leading-6 font-medium text-gray-900"
                   id="modal-title"
                 >
-                  {`Delete item: ${item.itemName}?`}
+                  Delete item?
                 </h3>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
