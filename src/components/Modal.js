@@ -2,37 +2,31 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import FocusTrap from 'focus-trap-react';
 
-const modalStyles = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%,-50%',
-  backgroundColor: '#FFF',
-  padding: '40px',
-  zIndex: 1000,
-  width: 200,
-  borderRadius: '0.3rem',
-  textAlign: 'center',
-};
-
-const overlayStyles = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'rgba(0,0,0,.7)',
-  zIndex: 1000,
-};
-
 export default function Modal({ open, children }) {
   if (!open) return null;
 
   return ReactDom.createPortal(
     <FocusTrap>
-      <div role="dialog">
-        <div style={overlayStyles} />
-        <div style={modalStyles}>{children}</div>
+      <div
+        className="fixed z-10 inset-0 overflow-y-auto"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div
+            className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            aria-hidden="true"
+          ></div>
+
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
+            &#8203;
+          </span>
+          <div>{children}</div>
+        </div>
       </div>
     </FocusTrap>,
     document.getElementById('portal'),
