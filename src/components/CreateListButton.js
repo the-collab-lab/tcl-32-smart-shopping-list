@@ -6,7 +6,7 @@ function CreateListButton({ createTokenAndSaveToLocalStorage }) {
       <NavLink
         onClick={createTokenAndSaveToLocalStorage}
         to="/list"
-        className="block flex justify-center items-center text-ronchi-yellow bg-gray-700 rounded-full h-10 w-3/6 font-serif font-bold hover:bg-ronchi-yellow hover:text-gray-700 transition duration-500"
+        className="block flex justify-center items-center text-ronchi-yellow bg-gray-700 rounded-full h-10 w-8/12 font-serif font-bold hover:bg-ronchi-yellow hover:text-gray-700 transition duration-500"
       >
         Create New List
       </NavLink>

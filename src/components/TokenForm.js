@@ -35,7 +35,7 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
         <button
           id="addToken"
           type="submit"
-          className="text-strong-lime-green bg-gray-700 mt-2 rounded-full h-10 w-3/6 font-serif font-bold hover:bg-strong-lime-green hover:text-gray-700 transition duration-500"
+          className="text-strong-lime-green bg-gray-700 mt-2 rounded-full h-10 w-8/12 font-serif font-bold hover:bg-strong-lime-green hover:text-gray-700 transition duration-500"
         >
           Add Token
         </button>
