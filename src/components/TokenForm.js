@@ -19,18 +19,27 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
   };
 
   return (
-    <form onSubmit={handleTokenSubmit}>
-      <label className="block">
-        <input
-          placeholder="Enter Token Here"
-          type="text"
-          id="sharedToken"
-          className="w-7/12 md:w-1/2 rounded-md bg-white bg-opacity-90 border-gray-300 border-2 focus:bg-white focus:border-strong-lime-green focus:ring-0 text-center focus:placeholder-transparent"
-        />
-      </label>
-      <button id="addToken" type="submit" className="addTokenSubmitButton">
-        Add Token
-      </button>
-    </form>
+    <div className="flex-1 flex flex-col justify-center items-center my-10 w-9/12 md:w-full bg-green-50 bg-opacity-50 rounded-md">
+      <form
+        onSubmit={handleTokenSubmit}
+        className="flex-1 flex flex-col align justify-center items-center mt-8 w-full"
+      >
+        <label className="block">
+          <input
+            placeholder="Enter Token Here"
+            type="text"
+            id="sharedToken"
+            className="w-full rounded-md bg-white bg-opacity-90 border-gray-300 border-2 focus:bg-white focus:border-strong-lime-green focus:ring-0 text-center font-sans focus:placeholder-transparent"
+          />
+        </label>
+        <button
+          id="addToken"
+          type="submit"
+          className="text-strong-lime-green bg-gray-700 mt-2 rounded-full h-10 w-3/6 font-serif font-bold hover:bg-strong-lime-green hover:text-gray-700 transition duration-500"
+        >
+          Add Token
+        </button>
+      </form>
+    </div>
   );
 }

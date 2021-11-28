@@ -7,7 +7,8 @@ function Home({
   createTokenAndSaveToLocalStorage,
 }) {
   return (
-    <div>
+    // <div className="flex-1 container mx-auto h-auto">
+    <div className="flex-1 flex flex-col items-center">
       <CreateListButton
         createTokenAndSaveToLocalStorage={createTokenAndSaveToLocalStorage}
       />
@@ -17,6 +18,7 @@ function Home({
         }
       />
     </div>
+    // </div>
   );
 }
 

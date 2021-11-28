@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -44,10 +43,10 @@ function App() {
   }
 
   return (
-    <div className="App h-screen bg-main-image bg-no-repeat bg-contain bg-center text-center justify-center">
+    <div className="App font-sans flex flex-col h-screen bg-main-image bg-no-repeat bg-cover bg-fixed bg-center text-center justify-center">
       <Router>
         <div className="flex justify-center items-center">
-          <h1 className="flex justify-center items-center text-white bg-maroon-flush text-4xl font-bold rounded-md p-5 flex flex-row mb-2 w-9/12 md:w-full">
+          <h1 className="font-serif flex justify-center items-center text-white bg-maroon-flush text-4xl font-bold rounded-md p-5 flex flex-row mb-2 w-9/12 md:w-full">
             Smart Shopping List
           </h1>
         </div>
@@ -75,7 +74,7 @@ function App() {
           </Route>
         </Switch>
         {userToken && (
-          <div className="linkContainerStyle">
+          <div className="flex flex-row fixed bottom-0 w-full">
             <NavLink
               activeClassName="active"
               className="bg-ronchi-yellow font-semibold text-white p-2 w-1/2  rounded-full hover:bg-red-damask focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
