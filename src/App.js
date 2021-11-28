@@ -46,8 +46,8 @@ function App() {
     <div className="App font-sans flex flex-col h-screen bg-main-image bg-no-repeat bg-cover bg-fixed bg-center text-center justify-center">
       <Router>
         <div className="flex justify-center items-center">
-          <h1 className="font-serif flex justify-center items-center text-white bg-maroon-flush text-3xl md:text-4xl font-bold rounded-b-md p-5 flex flex-row mb-2 w-full">
-            Smart Shopping List
+          <h1 className="font-serif justify-center items-center text-white bg-maroon-flush text-3xl md:text-4xl font-bold rounded-b-md p-5 flex-row mb-2 w-full">
+            ShopSmart
           </h1>
         </div>
         <Switch>
@@ -77,7 +77,7 @@ function App() {
           <div className="flex flex-row fixed bottom-0 bg-white w-full md:px-20 py-2">
             <NavLink
               activeClassName="active"
-              className="bg-ronchi-yellow font-semibold text-white font-serif font-bold p-2 w-1/2  rounded-full hover:bg-red-damask focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
+              className="bg-ronchi-yellow text-white font-serif font-bold p-2 w-1/2 rounded-full hover:bg-red-damask focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
               to="/list"
             >
               List
