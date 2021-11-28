@@ -3,7 +3,7 @@ import AddItemForm from '../components/AddItemForm';
 
 function AddItem() {
   return (
-    <div className="page">
+    <div className="flex-1">
       <AddItemForm />
     </div>
   );

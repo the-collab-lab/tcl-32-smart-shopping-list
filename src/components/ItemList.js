@@ -39,15 +39,16 @@ function ItemList({ userToken }) {
 
   return (
     <div>
-      <div>
-        {listItems.length === 0 ? (
-          <NavLink className="addItemSubmitButton" to="/additem">
-            Add Item
-          </NavLink>
-        ) : (
-          <SearchList listItems={listItems} userToken={userToken} />
-        )}
-      </div>
+      {listItems.length === 0 ? (
+        <NavLink
+          className="block flex justify-center items-center text-maroon-flush bg-white rounded-full mx-auto h-10 w-9/12 font-serif font-bold hover:bg-maroon-flush hover:text-white transition duration-500"
+          to="/additem"
+        >
+          Add Item
+        </NavLink>
+      ) : (
+        <SearchList listItems={listItems} userToken={userToken} />
+      )}
     </div>
   );
 }
