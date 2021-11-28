@@ -115,6 +115,12 @@ function AddItemForm() {
             value="7"
             name="nextPurchase"
             required
+            onChange={(e) => e.target.setCustomValidity('')}
+            onInvalid={(e) =>
+              e.target.setCustomValidity(
+                'Please select how often you buy this item.',
+              )
+            }
             className="form-radio h-5 w-5"
           />
           Soon
