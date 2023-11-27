@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { db } from '../lib/firebase';
 import { collection, where, query, getDocs } from 'firebase/firestore';
@@ -42,7 +43,7 @@ export default function TokenForm({ grabExistingTokenAndSaveToLocalStorage }) {
             This token does not exist.
           </p>
         ) : null}
-        <label className="block">
+        <label htmlFor="sharedToken" className="block">
           <input
             placeholder="Enter Token Here"
             type="text"
