@@ -9,9 +9,10 @@ import {
 import Home from './pages/Home';
 import List from './pages/List';
 import AddItem from './pages/AddItem';
-import { getToken } from '@the-collab-lab/shopping-list-utils';
-import { setDoc, doc } from 'firebase/firestore';
-import { db } from '../src/lib/firebase';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
+// import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
+// import { setDoc, doc } from 'firebase/firestore';
+// import { db } from '../src/lib/firebase';
 
 function App() {
   const [userToken, setUserToken] = useState(null);
@@ -21,17 +22,18 @@ function App() {
   }, [userToken]);
 
   function createTokenAndSaveToLocalStorage(userToken) {
-    window.localStorage.setItem('userToken', getToken());
-    getUserToken();
-    submitTokenToDB();
+    // window.localStorage.setItem('userToken', getToken());
+    // getUserToken();
+    // submitTokenToDB();
+    console.log('Creating new lists is disabled in this demo.');
   }
 
-  const submitTokenToDB = async () => {
-    const token = window.localStorage.getItem('userToken');
-    const docRef = doc(db, 'users', `${token}`);
-    const payload = { userToken: token };
-    await setDoc(docRef, payload);
-  };
+  // const submitTokenToDB = async () => {
+  //   const token = window.localStorage.getItem('userToken');
+  //   const docRef = doc(db, 'users', `${token}`);
+  //   const payload = { userToken: token };
+  //   await setDoc(docRef, payload);
+  // };
 
   function grabExistingTokenAndSaveToLocalStorage(token) {
     window.localStorage.setItem('userToken', token);
@@ -55,15 +57,18 @@ function App() {
             {userToken ? (
               <Redirect to="/list" />
             ) : (
-              <Home
-                createTokenAndSaveToLocalStorage={
-                  createTokenAndSaveToLocalStorage
-                }
-                getUserToken={getUserToken}
-                grabExistingTokenAndSaveToLocalStorage={
-                  grabExistingTokenAndSaveToLocalStorage
-                }
-              />
+              <>
+                <Home
+                  createTokenAndSaveToLocalStorage={
+                    createTokenAndSaveToLocalStorage
+                  }
+                  getUserToken={getUserToken}
+                  grabExistingTokenAndSaveToLocalStorage={
+                    grabExistingTokenAndSaveToLocalStorage
+                  }
+                />
+                <ArchivalNoticeModal />
+              </>
             )}
           </Route>
           <Route path="/list">
